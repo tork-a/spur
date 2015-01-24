@@ -1,0 +1,376 @@
+<?xml version="1.0"?>
+<robot name="spur"
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="ns" value="spur" />
+
+  <!-- include materials -->
+  <xacro:include filename="$(find spur_description)/urdf/materials.urdf.xacro" />
+  <xacro:include filename="$(find spur_description)/urdf/spur.gazebo.xacro" />
+
+  <!-- constants -->
+  <property name="M_PI" value="3.1415926535897931" />
+
+  <property name="wheel_radius" value="0.05" />
+  <property name="wheel_width" value="0.02" />
+
+  <property name="base_width" value="0.430" />
+  <property name="base_height" value="0.030" />
+  <property name="caster_offset_x" value="0.15" />
+  <property name="caster_offset_y" value="0.15" />
+  <property name="caster_offset_z" value="0.14" />
+
+  <!-- wheel -->
+  <xacro:macro name="odom_wheel_tire" params="parent suffix offset">
+
+    <joint name="${parent}_wheel_tire_${suffix}" type="fixed">
+      <origin xyz="0 0 ${offset}" rpy="0 0 0" />
+      <parent link="${parent}_wheel_link" />
+      <child link="${parent}_wheel_tire_${suffix}_link" />
+    </joint>
+
+    <link name="${parent}_wheel_tire_${suffix}_link">
+      <inertial>
+        <mass value="1.0" />
+        <origin xyz="0 0 0" />
+        <inertia  ixx="1.0" ixy="0.0" ixz="0.0"
+                  iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+        <geometry>
+          <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+        </geometry>
+        <material name="DarkGrey" />
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <xacro:gazebo_link name="${parent}_wheel_tire_${suffix}_link"  color="Black" />
+
+  </xacro:macro>
+
+  <xacro:macro name="odom_wheel_schaft" params="suffix">
+
+    <joint name="${suffix}_wheel_joint" type="continuous">
+      <axis xyz="0 0 1" />
+      <limit effort="100" velocity="10"/>
+      <dynamics damping="10.0" friction="0.0" />
+      <origin xyz="0 0 -${caster_offset_z}" rpy="-${M_PI/2} 0 0" />
+      <parent link="${suffix}_rotation_link" />
+      <child link="${suffix}_wheel_link" />
+    </joint>
+
+    <xacro:simple_transmission name="${suffix}_wheel_joint" />
+
+    <link name="${suffix}_wheel_link">
+      <inertial>
+        <mass value="1.0" />
+        <origin xyz="0 0 0" />
+        <inertia  ixx="1.0" ixy="0.0" ixz="0.0"
+                  iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+        <geometry>
+          <cylinder length="0.100" radius="0.02"/>
+        </geometry>
+        <material name="Grey" />
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder length="0.100" radius="0.02"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <xacro:gazebo_link name="${suffix}_wheel_link"  color="Gray" />
+
+  </xacro:macro>
+
+  <xacro:macro name="odom_wheel_rotate" params="suffix">
+    <joint name="${suffix}_rotation_joint" type="revolute">
+      <axis xyz="0 0 1" />
+      <limit lower="${-90*M_PI/180.0}" upper="${90*M_PI/180.0}" effort="300" velocity="1"/>
+      <dynamics damping="50.0" friction="1.0" />
+      <xacro:insert_block name="origin" />
+      <parent link="base_link"/>
+      <child link="${suffix}_rotation_link" />
+    </joint>
+
+    <xacro:simple_transmission name="${suffix}_rotation_joint" />
+
+    <link name="${suffix}_rotation_link">
+      <inertial>
+        <mass value="1.0" />
+        <origin xyz="0 0 0" />
+        <inertia  ixx="1.0" ixy="0.0" ixz="0.0"
+                  iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 -${caster_offset_z/2}" rpy="0 0 0" />
+        <geometry>
+          <cylinder length="${caster_offset_z}" radius="0.015"/>
+        </geometry>
+        <material name="LightGrey" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 -${caster_offset_z/2}" rpy="0 0 0" />
+        <geometry>
+          <cylinder length="${caster_offset_z}" radius="0.015"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <xacro:gazebo_link name="${suffix}_rotation_link"  color="LightGray" />
+
+  </xacro:macro>
+
+  <xacro:macro name="odom_wheel" params="suffix *origin">
+
+    <xacro:odom_wheel_rotate suffix="${suffix}" />
+    <xacro:odom_wheel_schaft suffix="${suffix}" />
+    <xacro:odom_wheel_tire parent="${suffix}" suffix="l" offset="${0.05-wheel_width/2}"  />
+    <xacro:odom_wheel_tire parent="${suffix}" suffix="r" offset="-${0.05-wheel_width/2}" />
+
+  </xacro:macro>
+
+  <!-- arm -->
+  <xacro:macro name="mx_106_link" params="name *origin">
+    <link name="${name}">
+      <inertial>
+        <mass value="1.0" />
+        <xacro:insert_block name="origin" />
+        <inertia  ixx="1.0" ixy="0.0" ixz="0.0"
+                  iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+        <xacro:insert_block name="origin" />
+        <geometry>
+          <box size="0.029 0.0595 0.046" />
+        </geometry>
+        <material name="DarkGrey" />
+      </visual>
+      <collision>
+        <xacro:insert_block name="origin" />
+        <geometry>
+          <box size="0.029 0.0595 0.046" />
+        </geometry>
+      </collision>
+    </link>
+
+    <xacro:gazebo_link name="${name}"  color="Black" />
+
+  </xacro:macro>
+
+  <xacro:macro name="arm_link_element" params="name length" >
+    <link name="${name}">
+      <inertial>
+        <mass value="1.0" />
+        <origin xyz="-${length/2 - 0.0145} 0 0" />
+        <inertia  ixx="1.0" ixy="0.0" ixz="0.0"
+                  iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+      <visual>
+        <origin xyz="-${length/2 - 0.0145} 0 0" />
+        <geometry>
+          <box size="${length} 0.029 0.005" />
+        </geometry>
+        <material name="LightGrey" />
+      </visual>
+      <collision>
+        <origin xyz="-${length/2 - 0.0145} 0 0"/>
+        <geometry>
+          <box size="${length} 0.029 0.005" />
+        </geometry>
+      </collision>
+
+      <xacro:gazebo_link name="${name}"  color="LightGray" />
+
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="arm_link_body" params="name length *origin" >
+    <xacro:arm_link_element name="${name}_body_1" length="${length}"/>
+    <xacro:arm_link_element name="${name}_body_2" length="${length}"/>
+    <link name="${name}_body" />
+    <joint name="${name}_body_1_fixed" type="fixed">
+      <origin xyz="0 0 0.023" />
+      <parent link="${name}_body" />
+      <child link="${name}_body_1" />
+    </joint>
+    <joint name="${name}_body_2_fixed" type="fixed">
+      <origin xyz="0 0 -0.023" />
+      <parent link="${name}_body" />
+      <child link="${name}_body_2" />
+    </joint>
+    <joint name="${name}_body_fixed" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${name}_link" />
+      <child link="${name}_body" />
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="arm_joint" params="parent name joint_origin_xyz joint_origin_rpy">
+
+    <joint name="${name}_joint" type="revolute">
+      <axis xyz="0 0 1" />
+      <limit lower="${-90*M_PI/180.0}" upper="${90*M_PI/180.0}" effort="300" velocity="1"/>
+      <dynamics damping="50.0" friction="1.0" />
+      <origin xyz="${joint_origin_xyz}" rpy="${joint_origin_rpy}" />
+      <parent link="${parent}"/>
+      <child link="${name}_link" />
+    </joint>
+
+    <xacro:simple_transmission name="${name}_joint" />
+
+  </xacro:macro>
+
+  <xacro:macro name="arm_link" params="parent name joint_origin_xyz joint_origin_rpy
+                                       link_origin_xyz
+                                       link_origin_rpy">
+    <xacro:arm_joint parent="${parent}" name="${name}"
+                     joint_origin_xyz="${joint_origin_xyz}"
+                     joint_origin_rpy="${joint_origin_rpy}" />
+    <xacro:mx_106_link name="${name}_link" >
+      <origin xyz="${link_origin_xyz}" rpy="${link_origin_rpy}" />
+    </xacro:mx_106_link>
+  </xacro:macro>
+
+  <xacro:macro name="arm_links" params="prefix reflect" >
+    <joint name="${prefix}_base_joint" type="fixed">
+      <origin xyz="0 ${reflect * -0.15} 0.7" rpy="${M_PI/2} 0 0" />
+      <parent link="base_link"/>
+      <child link="${prefix}_base_link" />
+    </joint>
+    <xacro:mx_106_link name="${prefix}_base_link" >
+      <origin xyz="0 0.01525 0" rpy="0 0 0" />
+    </xacro:mx_106_link>
+    <xacro:arm_link parent="${prefix}_base_link" name="${prefix}_shoulder_p"
+                    joint_origin_xyz="0 0 0" joint_origin_rpy="0 0 0"
+                    link_origin_xyz="0 0 ${reflect * (0.1 - 0.01525)}"
+                    link_origin_rpy="${M_PI/2} 0 ${M_PI/2}" />
+    <xacro:arm_link parent="${prefix}_shoulder_p_link" name="${prefix}_shoulder_r"
+                    joint_origin_xyz="0 0 ${reflect * 0.1}" joint_origin_rpy="0 ${M_PI/2} 0"
+                    link_origin_xyz="0 -0.05 0"
+                    link_origin_rpy="${M_PI/2} 0 0" />
+    <xacro:arm_link parent="${prefix}_shoulder_r_link" name="${prefix}_shoulder_y"
+                    joint_origin_xyz="0 -0.1 0.0" joint_origin_rpy="${M_PI/2} 0 0"
+                    link_origin_xyz="0 0 ${0.2 - 0.01515}"
+                    link_origin_rpy="${M_PI/2} 0 ${M_PI/2}" />
+    <xacro:arm_link parent="${prefix}_shoulder_y_link" name="${prefix}_elbow_p"
+                    joint_origin_xyz="0 0 0.2" joint_origin_rpy="0 ${M_PI/2} 0"
+                    link_origin_xyz="-${0.2 - 0.01525} 0 0"
+                    link_origin_rpy="0 0 ${M_PI/2}" />
+    <xacro:arm_link parent="${prefix}_elbow_p_link" name="${prefix}_wrist_p"
+                    joint_origin_xyz="-0.2 0 0" joint_origin_rpy="0 0 0"
+                    link_origin_xyz="-0.05 0 0"
+                    link_origin_rpy="${M_PI/2} ${M_PI/2} 0" />
+    <xacro:arm_joint parent="${prefix}_wrist_p_link" name="${prefix}_wrist_r"
+                     joint_origin_xyz="-0.05 0 0"
+                     joint_origin_rpy="-${M_PI/2} -${M_PI/2} 0" />
+    <link name="${prefix}_wrist_r_link" >
+      <inertial>
+        <mass value="1.0" />
+        <origin xyz="0 0 0" />
+        <inertia  ixx="1.0" ixy="0.0" ixz="0.0"
+                  iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+    </link>
+
+    <xacro:arm_link_body name="${prefix}_elbow_p" length="0.2" >
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:arm_link_body>
+    <xacro:arm_link_body name="${prefix}_shoulder_y" length="0.2" >
+      <origin xyz="0 0 -0.02" rpy="0 ${M_PI/2} 0" />
+    </xacro:arm_link_body>
+    
+  </xacro:macro>
+
+  <!-- base -->
+  <link name="base_link">
+    <inertial>
+      <mass value="10.0" />
+      <origin xyz="0 0 0" />
+      <inertia  ixx="1.0" ixy="0.0" ixz="0.0"
+                iyy="1.0" iyz="0.0" izz="1.0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${base_width} ${base_width} ${base_height}" />
+      </geometry>
+      <material name="DarkGrey" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${base_width} ${base_width} ${base_height}" />
+      </geometry>
+    </collision>
+  </link>
+
+  <xacro:gazebo_link name="base_link"  color="Black" />
+    
+  <link name="base_footprint" />
+  <joint name="base_to_footprint" type="fixed" >
+    <origin xyz="0 0 -0.190" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="base_footprint" />
+  </joint>
+
+  <!-- odom base -->
+  <xacro:odom_wheel suffix="fl">
+    <origin xyz="${caster_offset_x} ${caster_offset_y} 0.0" rpy="0 0 0" />
+  </xacro:odom_wheel>
+  <xacro:odom_wheel suffix="fr">
+    <origin xyz="${caster_offset_x} -${caster_offset_y} 0.0" rpy="0 0 0" />
+  </xacro:odom_wheel>
+  <xacro:odom_wheel suffix="bl">
+    <origin xyz="-${caster_offset_x} ${caster_offset_y} 0.0" rpy="0 0 0" />
+  </xacro:odom_wheel>
+  <xacro:odom_wheel suffix="br">
+    <origin xyz="-${caster_offset_x} -${caster_offset_y} 0.0" rpy="0 0 0" />
+  </xacro:odom_wheel>
+
+  <!-- arm -->
+  <xacro:arm_links prefix="rarm" reflect="1" />
+  <xacro:arm_links prefix="larm" reflect="-1" />
+
+  <!-- body -->
+  <link name="body">
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0.25" />
+      <inertia  ixx="1.0" ixy="0.0" ixz="0.0"
+                iyy="1.0" iyz="0.0" izz="1.0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.25" />
+      <geometry>
+        <box size="0.1 0.2 0.5" />
+      </geometry>
+      <material name="LightGrey" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.25" />
+      <geometry>
+        <box size="0.1 0.2 0.5" />
+      </geometry>
+    </collision>
+  </link>
+
+  <xacro:gazebo_link name="body"  color="White" />
+
+  <joint name="base_to_body" type="fixed" >
+    <origin xyz="0 0 0.30" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="body" />
+  </joint>
+
+</robot>

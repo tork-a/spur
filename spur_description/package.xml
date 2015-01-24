@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+  <name>spur_description</name>
+  <version>0.0.0</version>
+  <description>The spur_description package</description>
+
+  <maintainer email="iisaito@opensource-robotics.tokyo.jp">Isaac Saito</maintainer>
+
+  <license>BSD</license>
+
+  <author email="540o@opensource-robotics.tokyo.jp">Tokyo Opensource Robotics Programmer 534o</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>urdf</build_depend>
+  <build_depend>xacro</build_depend>
+
+  <run_depend>urdf</run_depend>
+  <run_depend>xacro</run_depend>
+
+  <export>
+  </export>
+</package>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+  <name>spur_controller</name>
+  <version>0.0.0</version>
+  <description>The spur_controller package</description>
+
+  <maintainer email="iisaito@opensource-robotics.tokyo.jp">Isaac Saito</maintainer>
+
+  <license>BSD</license>
+
+  <author email="iisaito@opensource-robotics.tokyo.jp">Isaac Saito</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>joint_state_publisher</run_depend>
+  <run_depend>ros_controllers</run_depend>
+
+  <export>
+  </export>
+</package>

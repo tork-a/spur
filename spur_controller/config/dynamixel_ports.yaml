@@ -1,0 +1,12 @@
+namespace: spur_controller_manager
+diagnostics_rate: 2
+serial_ports:
+    dynamixel_MX106:
+        port_name: /dev/ttyUSB0
+        baud_rate: 1000000
+        min_motor_id:  1
+        max_motor_id:  8 
+        update_rate: 20
+        diagnostics:
+            error_level_temp: 70
+            warn_level_temp: 65

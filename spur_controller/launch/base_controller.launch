@@ -1,0 +1,6 @@
+<launch>
+  <node pkg="spur_controller" name="spur_base_controller"
+        type="base_controller.py" output="screen" ns="/spur">
+    <remap from="cmd_vel" to="/cmd_vel" />
+  </node>
+</launch>

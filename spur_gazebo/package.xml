@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <name>spur_gazebo</name>
+  <version>0.0.0</version>
+  <description>The spur_description package</description>
+
+  <maintainer email="iisaito@opensource-robotics.tokyo.jp">Isaac Saito</maintainer>
+
+  <license>BSD</license>
+
+  <author email="540o@opensource-robotics.tokyo.jp">Tokyo Opensource Robotics Programmer 534o</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>gazebo_ros_control</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+
+  <export>
+  </export>
+</package>
