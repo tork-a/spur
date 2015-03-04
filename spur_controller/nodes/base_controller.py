@@ -128,9 +128,9 @@ class BaseController:
             
         rospy.logdebug("wheel   %f %f %f %f" % (fr_v, fl_v, br_v, bl_v))
         rospy.logdebug("rotate  %f %f %f %f" % (fr_a, fl_a, br_a, bl_a))
-        self.pub_fr_w.publish(Float64(fr_v/(diameter*pi)))
+        self.pub_fr_w.publish(Float64(-1*fr_v/(diameter*pi))) # right wheel has -1 axis orientation
         self.pub_fl_w.publish(Float64(fl_v/(diameter*pi)))
-        self.pub_br_w.publish(Float64(br_v/(diameter*pi)))
+        self.pub_br_w.publish(Float64(-1*br_v/(diameter*pi)))
         self.pub_bl_w.publish(Float64(bl_v/(diameter*pi)))
         self.pub_fr_r.publish(Float64(fr_a))
         self.pub_fl_r.publish(Float64(fl_a))
