@@ -40,11 +40,13 @@ velocity to the base_controller and then plots the actual outputs.
 import argparse
 import rospy
 import sys, time
+import numpy
 from math import sin, cos, asin, acos, atan2, hypot, fabs, pi
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import JointState
 from std_msgs.msg import Float64
+from tf.transformations import quaternion_multiply, quaternion_about_axis, quaternion_matrix, translation_matrix
 
 # visualization
 from pylab import *
@@ -63,10 +65,17 @@ class BaseController:
         self.pub_br_w = rospy.Publisher("br_wheel_joint_velocity_controller/command", Float64, queue_size=1)
         self.pub_fl_w = rospy.Publisher("fl_wheel_joint_velocity_controller/command", Float64, queue_size=1)
         self.pub_fr_w = rospy.Publisher("fr_wheel_joint_velocity_controller/command", Float64, queue_size=1)
+        self.pub_odom = rospy.Publisher("odom", Odometry, queue_size=1)
 
         self.last_cmd_msg = Twist()
         self.last_cmd_time = rospy.Time()
         self.cmd = self.last_cmd_msg
+        self.odom = Odometry()
+        self.odom.header.frame_id = "odom"
+        self.odom.pose.pose.orientation.w = 1
+        self.odom.pose.covariance[0] = self.odom.pose.covariance[7] = self.odom.pose.covariance[14] = self.odom.pose.covariance[21] = self.odom.pose.covariance[28] =  self.odom.pose.covariance[35] = 1
+        self.odom.twist.covariance[0] = self.odom.twist.covariance[7] = self.odom.twist.covariance[14] = self.odom.twist.covariance[21] = self.odom.twist.covariance[28] =  self.odom.twist.covariance[35] = 1
+        self.last_control_time = rospy.Time.now()
 
         rospy.on_shutdown(self.cleanup)
 
@@ -81,6 +90,26 @@ class BaseController:
         time.sleep(1)
 
     def control(self):
+        control_interval = (rospy.Time.now() - self.last_control_time).to_sec()
+        self.last_control_time = rospy.Time.now()
+
+        v1 = translation_matrix((self.cmd.linear.x * control_interval, self.cmd.linear.y * control_interval, 0))
+        o  = self.odom.pose.pose.orientation
+        v2 = numpy.dot(quaternion_matrix([o.x, o.y, o.z, o.w]), v1)
+        self.odom.pose.pose.position.x += v2[0,3]
+        self.odom.pose.pose.position.y += v2[1,3]
+        q1 = quaternion_about_axis(self.cmd.angular.z*control_interval, (0, 0, 1))
+        o  = self.odom.pose.pose.orientation
+        q2 = quaternion_multiply([o.x, o.y, o.z, o.w], q1)
+        self.odom.pose.pose.orientation.x = q2[0]
+        self.odom.pose.pose.orientation.y = q2[1]
+        self.odom.pose.pose.orientation.z = q2[2]
+        self.odom.pose.pose.orientation.w = q2[3]
+        self.odom.twist.twist.linear.x = v2[0,3]
+        self.odom.twist.twist.linear.y = v2[1,3]
+        self.odom.twist.twist.angular.z += self.cmd.angular.z * control_interval
+        self.odom.header.stamp = rospy.Time.now()
+
         if (rospy.Time.now() - self.last_cmd_time).to_sec() > 5: ## if new cmd_vel did not comes for 5 sec
             self.last_cmd_msg = Twist()
 
@@ -136,6 +165,7 @@ class BaseController:
         self.pub_fl_r.publish(Float64(fl_a))
         self.pub_br_r.publish(Float64(br_a))
         self.pub_bl_r.publish(Float64(bl_a))
+        self.pub_odom.publish(self.odom)
 
     def cmdCb(self, msg):
         self.last_cmd_msg = msg
