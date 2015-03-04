@@ -93,9 +93,9 @@
 
   </xacro:macro>
 
-  <xacro:macro name="odom_wheel_rotate" params="suffix">
+  <xacro:macro name="odom_wheel_rotate" params="suffix rot_axis">
     <joint name="${suffix}_rotation_joint" type="revolute">
-      <axis xyz="0 0 1" />
+      <axis xyz="0 0 ${rot_axis}" />
       <limit lower="${-90*M_PI/180.0}" upper="${90*M_PI/180.0}" effort="300" velocity="1"/>
       <dynamics damping="50.0" friction="1.0" />
       <xacro:insert_block name="origin" />
@@ -131,9 +131,9 @@
 
   </xacro:macro>
 
-  <xacro:macro name="odom_wheel" params="suffix *origin">
+  <xacro:macro name="odom_wheel" params="suffix *origin rot_axis">
 
-    <xacro:odom_wheel_rotate suffix="${suffix}" />
+    <xacro:odom_wheel_rotate suffix="${suffix}" rot_axis="${rot_axis}" />
     <xacro:odom_wheel_schaft suffix="${suffix}" />
     <xacro:odom_wheel_tire parent="${suffix}" suffix="l" offset="${0.05-wheel_width/2}"  />
     <xacro:odom_wheel_tire parent="${suffix}" suffix="r" offset="-${0.05-wheel_width/2}" />
@@ -325,16 +325,16 @@
   </joint>
 
   <!-- odom base -->
-  <xacro:odom_wheel suffix="fl">
+  <xacro:odom_wheel suffix="fl" rot_axis="1">
     <origin xyz="${caster_offset_x} ${caster_offset_y} 0.0" rpy="0 0 0" />
   </xacro:odom_wheel>
-  <xacro:odom_wheel suffix="fr">
+  <xacro:odom_wheel suffix="fr" rot_axis="-1">
     <origin xyz="${caster_offset_x} -${caster_offset_y} 0.0" rpy="0 0 0" />
   </xacro:odom_wheel>
-  <xacro:odom_wheel suffix="bl">
+  <xacro:odom_wheel suffix="bl" rot_axis="1">
     <origin xyz="-${caster_offset_x} ${caster_offset_y} 0.0" rpy="0 0 0" />
   </xacro:odom_wheel>
-  <xacro:odom_wheel suffix="br">
+  <xacro:odom_wheel suffix="br" rot_axis="-1">
     <origin xyz="-${caster_offset_x} -${caster_offset_y} 0.0" rpy="0 0 0" />
   </xacro:odom_wheel>
 
