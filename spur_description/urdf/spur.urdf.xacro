@@ -318,10 +318,10 @@
   <xacro:gazebo_link name="base_link"  color="Black" />
     
   <link name="base_footprint" />
-  <joint name="base_to_footprint" type="fixed" >
-    <origin xyz="0 0 -0.190" rpy="0 0 0" />
-    <parent link="base_link"/>
-    <child link="base_footprint" />
+  <joint name="footprint_to_base" type="fixed" >
+    <origin xyz="0 0 0.190" rpy="0 0 0" />
+    <parent link="base_footprint"/>
+    <child link="base_link" />
   </joint>
 
   <!-- odom base -->
