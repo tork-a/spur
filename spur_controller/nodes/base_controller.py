@@ -113,9 +113,10 @@ class BaseController:
         if (rospy.Time.now() - self.last_cmd_time).to_sec() > 5: ## if new cmd_vel did not comes for 5 sec
             self.last_cmd_msg = Twist()
 
-        self.cmd.linear.x += max(min(self.last_cmd_msg.linear.x - self.cmd.linear.x ,0.01),-0.01)
-        self.cmd.linear.y += max(min(self.last_cmd_msg.linear.y - self.cmd.linear.y ,0.01),-0.01)
-        self.cmd.angular.z += max(min(self.last_cmd_msg.angular.z - self.cmd.angular.z ,0.01),-0.01)
+        velocity_limit = 0.01
+        self.cmd.linear.x += max(min(self.last_cmd_msg.linear.x - self.cmd.linear.x ,velocity_limit),-velocity_limit)
+        self.cmd.linear.y += max(min(self.last_cmd_msg.linear.y - self.cmd.linear.y ,velocity_limit),-velocity_limit)
+        self.cmd.angular.z += max(min(self.last_cmd_msg.angular.z - self.cmd.angular.z ,velocity_limit),-velocity_limit)
         rospy.logdebug("cmd_vel %f %f %f" % (self.cmd.linear.x, self.cmd.linear.y, self.cmd.angular.z))
 
         diameter = 0.1  # caster diameter
