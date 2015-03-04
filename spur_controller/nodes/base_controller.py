@@ -113,7 +113,7 @@ class BaseController:
         if (rospy.Time.now() - self.last_cmd_time).to_sec() > 5: ## if new cmd_vel did not comes for 5 sec
             self.last_cmd_msg = Twist()
 
-        velocity_limit = 0.01
+        velocity_limit = 0.001
         self.cmd.linear.x += max(min(self.last_cmd_msg.linear.x - self.cmd.linear.x ,velocity_limit),-velocity_limit)
         self.cmd.linear.y += max(min(self.last_cmd_msg.linear.y - self.cmd.linear.y ,velocity_limit),-velocity_limit)
         self.cmd.angular.z += max(min(self.last_cmd_msg.angular.z - self.cmd.angular.z ,velocity_limit),-velocity_limit)
@@ -132,7 +132,7 @@ class BaseController:
         br_v_y = self.cmd.linear.y + self.cmd.angular.z * (-offset_x)
         bl_v_x = self.cmd.linear.x - self.cmd.angular.z * ( offset_y)
         bl_v_y = self.cmd.linear.y + self.cmd.angular.z * (-offset_x)
-        # v[m/s] = v[rad/s] * 0.1[m] * PI  ## 0.1 = diameter
+        # v[m/s] = r[rad/s] * 0.1[m]  ## 0.1 = diameter
         fr_v = hypot(fr_v_x, fr_v_y)
         fl_v = hypot(fl_v_x, fl_v_y)
         br_v = hypot(br_v_x, br_v_y)
@@ -158,10 +158,10 @@ class BaseController:
             
         rospy.logdebug("wheel   %f %f %f %f" % (fr_v, fl_v, br_v, bl_v))
         rospy.logdebug("rotate  %f %f %f %f" % (fr_a, fl_a, br_a, bl_a))
-        self.pub_fr_w.publish(Float64(-1*fr_v/(diameter*pi))) # right wheel has -1 axis orientation
-        self.pub_fl_w.publish(Float64(fl_v/(diameter*pi)))
-        self.pub_br_w.publish(Float64(-1*br_v/(diameter*pi)))
-        self.pub_bl_w.publish(Float64(bl_v/(diameter*pi)))
+        self.pub_fr_w.publish(Float64(-1*fr_v/diameter)) # right wheel has -1 axis orientation
+        self.pub_fl_w.publish(Float64(   fl_v/diameter))
+        self.pub_br_w.publish(Float64(-1*br_v/diameter))
+        self.pub_bl_w.publish(Float64(   bl_v/diameter))
         self.pub_fr_r.publish(Float64(fr_a))
         self.pub_fl_r.publish(Float64(fl_a))
         self.pub_br_r.publish(Float64(br_a))
