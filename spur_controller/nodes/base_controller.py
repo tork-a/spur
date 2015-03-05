@@ -40,11 +40,13 @@ velocity to the base_controller and then plots the actual outputs.
 import argparse
 import rospy
 import sys, time
+import numpy
 from math import sin, cos, asin, acos, atan2, hypot, fabs, pi
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import JointState
 from std_msgs.msg import Float64
+from tf.transformations import quaternion_multiply, quaternion_about_axis, quaternion_matrix, translation_matrix
 
 # visualization
 from pylab import *
@@ -63,10 +65,17 @@ class BaseController:
         self.pub_br_w = rospy.Publisher("br_wheel_joint_velocity_controller/command", Float64, queue_size=1)
         self.pub_fl_w = rospy.Publisher("fl_wheel_joint_velocity_controller/command", Float64, queue_size=1)
         self.pub_fr_w = rospy.Publisher("fr_wheel_joint_velocity_controller/command", Float64, queue_size=1)
+        self.pub_odom = rospy.Publisher("odom", Odometry, queue_size=1)
 
         self.last_cmd_msg = Twist()
         self.last_cmd_time = rospy.Time()
         self.cmd = self.last_cmd_msg
+        self.odom = Odometry()
+        self.odom.header.frame_id = "odom"
+        self.odom.pose.pose.orientation.w = 1
+        self.odom.pose.covariance[0] = self.odom.pose.covariance[7] = self.odom.pose.covariance[14] = self.odom.pose.covariance[21] = self.odom.pose.covariance[28] =  self.odom.pose.covariance[35] = 1
+        self.odom.twist.covariance[0] = self.odom.twist.covariance[7] = self.odom.twist.covariance[14] = self.odom.twist.covariance[21] = self.odom.twist.covariance[28] =  self.odom.twist.covariance[35] = 1
+        self.last_control_time = rospy.Time.now()
 
         rospy.on_shutdown(self.cleanup)
 
@@ -81,12 +90,33 @@ class BaseController:
         time.sleep(1)
 
     def control(self):
+        control_interval = (rospy.Time.now() - self.last_control_time).to_sec()
+        self.last_control_time = rospy.Time.now()
+
+        v1 = translation_matrix((self.cmd.linear.x * control_interval, self.cmd.linear.y * control_interval, 0))
+        o  = self.odom.pose.pose.orientation
+        v2 = numpy.dot(quaternion_matrix([o.x, o.y, o.z, o.w]), v1)
+        self.odom.pose.pose.position.x += v2[0,3]
+        self.odom.pose.pose.position.y += v2[1,3]
+        q1 = quaternion_about_axis(self.cmd.angular.z*control_interval, (0, 0, 1))
+        o  = self.odom.pose.pose.orientation
+        q2 = quaternion_multiply([o.x, o.y, o.z, o.w], q1)
+        self.odom.pose.pose.orientation.x = q2[0]
+        self.odom.pose.pose.orientation.y = q2[1]
+        self.odom.pose.pose.orientation.z = q2[2]
+        self.odom.pose.pose.orientation.w = q2[3]
+        self.odom.twist.twist.linear.x = v2[0,3]
+        self.odom.twist.twist.linear.y = v2[1,3]
+        self.odom.twist.twist.angular.z += self.cmd.angular.z * control_interval
+        self.odom.header.stamp = rospy.Time.now()
+
         if (rospy.Time.now() - self.last_cmd_time).to_sec() > 5: ## if new cmd_vel did not comes for 5 sec
             self.last_cmd_msg = Twist()
 
-        self.cmd.linear.x += max(min(self.last_cmd_msg.linear.x - self.cmd.linear.x ,0.01),-0.01)
-        self.cmd.linear.y += max(min(self.last_cmd_msg.linear.y - self.cmd.linear.y ,0.01),-0.01)
-        self.cmd.angular.z += max(min(self.last_cmd_msg.angular.z - self.cmd.angular.z ,0.01),-0.01)
+        velocity_limit = 0.001
+        self.cmd.linear.x += max(min(self.last_cmd_msg.linear.x - self.cmd.linear.x ,velocity_limit),-velocity_limit)
+        self.cmd.linear.y += max(min(self.last_cmd_msg.linear.y - self.cmd.linear.y ,velocity_limit),-velocity_limit)
+        self.cmd.angular.z += max(min(self.last_cmd_msg.angular.z - self.cmd.angular.z ,velocity_limit),-velocity_limit)
         rospy.logdebug("cmd_vel %f %f %f" % (self.cmd.linear.x, self.cmd.linear.y, self.cmd.angular.z))
 
         diameter = 0.1  # caster diameter
@@ -102,11 +132,11 @@ class BaseController:
         br_v_y = self.cmd.linear.y + self.cmd.angular.z * (-offset_x)
         bl_v_x = self.cmd.linear.x - self.cmd.angular.z * ( offset_y)
         bl_v_y = self.cmd.linear.y + self.cmd.angular.z * (-offset_x)
-        # v[m/s] = v[rad/s] * 0.1[m] * PI  ## 0.1 = diameter
-        fr_v = hypot(fr_v_x, fr_v_x)
-        fl_v = hypot(fl_v_x, fl_v_x)
-        br_v = hypot(br_v_x, br_v_x)
-        bl_v = hypot(bl_v_x, bl_v_x)
+        # v[m/s] = r[rad/s] * 0.1[m]  ## 0.1 = diameter
+        fr_v = hypot(fr_v_x, fr_v_y)
+        fl_v = hypot(fl_v_x, fl_v_y)
+        br_v = hypot(br_v_x, br_v_y)
+        bl_v = hypot(bl_v_x, bl_v_y)
         fr_a = atan2(fr_v_y, fr_v_x)
         fl_a = atan2(fl_v_y, fl_v_x)
         br_a = atan2(br_v_y, br_v_x)
@@ -128,14 +158,15 @@ class BaseController:
             
         rospy.logdebug("wheel   %f %f %f %f" % (fr_v, fl_v, br_v, bl_v))
         rospy.logdebug("rotate  %f %f %f %f" % (fr_a, fl_a, br_a, bl_a))
-        self.pub_fr_w.publish(Float64(fr_v/(diameter*pi)))
-        self.pub_fl_w.publish(Float64(fl_v/(diameter*pi)))
-        self.pub_br_w.publish(Float64(br_v/(diameter*pi)))
-        self.pub_bl_w.publish(Float64(bl_v/(diameter*pi)))
+        self.pub_fr_w.publish(Float64(-1*fr_v/diameter)) # right wheel has -1 axis orientation
+        self.pub_fl_w.publish(Float64(   fl_v/diameter))
+        self.pub_br_w.publish(Float64(-1*br_v/diameter))
+        self.pub_bl_w.publish(Float64(   bl_v/diameter))
         self.pub_fr_r.publish(Float64(fr_a))
         self.pub_fl_r.publish(Float64(fl_a))
         self.pub_br_r.publish(Float64(br_a))
         self.pub_bl_r.publish(Float64(bl_a))
+        self.pub_odom.publish(self.odom)
 
     def cmdCb(self, msg):
         self.last_cmd_msg = msg

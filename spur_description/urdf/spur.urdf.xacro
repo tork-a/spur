@@ -56,10 +56,10 @@
 
   </xacro:macro>
 
-  <xacro:macro name="odom_wheel_schaft" params="suffix">
+  <xacro:macro name="odom_wheel_schaft" params="suffix rot_axis">
 
     <joint name="${suffix}_wheel_joint" type="continuous">
-      <axis xyz="0 0 1" />
+      <axis xyz="0 0 ${rot_axis}" />
       <limit effort="100" velocity="10"/>
       <dynamics damping="10.0" friction="0.0" />
       <origin xyz="0 0 -${caster_offset_z}" rpy="-${M_PI/2} 0 0" />
@@ -131,10 +131,10 @@
 
   </xacro:macro>
 
-  <xacro:macro name="odom_wheel" params="suffix *origin">
+  <xacro:macro name="odom_wheel" params="suffix *origin rot_axis">
 
     <xacro:odom_wheel_rotate suffix="${suffix}" />
-    <xacro:odom_wheel_schaft suffix="${suffix}" />
+    <xacro:odom_wheel_schaft suffix="${suffix}" rot_axis="${rot_axis}" />
     <xacro:odom_wheel_tire parent="${suffix}" suffix="l" offset="${0.05-wheel_width/2}"  />
     <xacro:odom_wheel_tire parent="${suffix}" suffix="r" offset="-${0.05-wheel_width/2}" />
 
@@ -318,23 +318,23 @@
   <xacro:gazebo_link name="base_link"  color="Black" />
     
   <link name="base_footprint" />
-  <joint name="base_to_footprint" type="fixed" >
-    <origin xyz="0 0 -0.190" rpy="0 0 0" />
-    <parent link="base_link"/>
-    <child link="base_footprint" />
+  <joint name="footprint_to_base" type="fixed" >
+    <origin xyz="0 0 0.190" rpy="0 0 0" />
+    <parent link="base_footprint"/>
+    <child link="base_link" />
   </joint>
 
   <!-- odom base -->
-  <xacro:odom_wheel suffix="fl">
+  <xacro:odom_wheel suffix="fl" rot_axis="1">
     <origin xyz="${caster_offset_x} ${caster_offset_y} 0.0" rpy="0 0 0" />
   </xacro:odom_wheel>
-  <xacro:odom_wheel suffix="fr">
+  <xacro:odom_wheel suffix="fr" rot_axis="-1">
     <origin xyz="${caster_offset_x} -${caster_offset_y} 0.0" rpy="0 0 0" />
   </xacro:odom_wheel>
-  <xacro:odom_wheel suffix="bl">
+  <xacro:odom_wheel suffix="bl" rot_axis="1">
     <origin xyz="-${caster_offset_x} ${caster_offset_y} 0.0" rpy="0 0 0" />
   </xacro:odom_wheel>
-  <xacro:odom_wheel suffix="br">
+  <xacro:odom_wheel suffix="br" rot_axis="-1">
     <origin xyz="-${caster_offset_x} -${caster_offset_y} 0.0" rpy="0 0 0" />
   </xacro:odom_wheel>
 
