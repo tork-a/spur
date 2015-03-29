@@ -1,6 +1,8 @@
 <launch>
+  <arg name="rvizconfig" default="$(find spur_description)/launch/spur.rviz" />
   <include file="$(find urdf_tutorial)/launch/xacrodisplay.launch">
     <arg name="model" value="$(find spur_description)/urdf/spur.urdf.xacro"  />
     <arg name="gui" value="true" />
+    <arg name="rvizconfig" value="$(arg rvizconfig)" />
   </include>
 </launch>
