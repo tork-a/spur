@@ -12,9 +12,6 @@
   <url type="repository">https://github.com/tork-a/spur</url>
 
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>spur_controller</build_depend>
-  <build_depend>spur_description</build_depend>
-  <build_depend>spur_gazebo</build_depend>
   <run_depend>spur_controller</run_depend>
   <run_depend>spur_description</run_depend>
   <run_depend>spur_gazebo</run_depend>
