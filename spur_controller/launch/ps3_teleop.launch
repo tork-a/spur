@@ -1,0 +1,10 @@
+<launch>
+  <node pkg="turtlebot_teleop" type="turtlebot_teleop_joy" name="spur_teleop_joy">
+    <param name="scale_angular" value="1.5"/>
+    <param name="scale_linear" value="0.5"/>
+    <remap from="spur_teleop_joy/cmd_vel" to="spur/cmd_vel"/>
+  </node>
+
+  <node pkg="joy" type="joy_node" name="joystick"/>
+
+</launch>

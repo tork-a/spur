@@ -56,7 +56,7 @@ class BaseController:
     ## x is m/s, accel_x is m/s^2
     ## r is rad/s, accel_r is rad/s^2
     def __init__(self):
-        self.sub = rospy.Subscriber("cmd_vel", Twist, self.cmdCb)
+        self.sub = rospy.Subscriber("spur/cmd_vel", Twist, self.cmdCb)
         self.pub_bl_r = rospy.Publisher("bl_rotation_joint_position_controller/command", Float64, queue_size=1)
         self.pub_br_r = rospy.Publisher("br_rotation_joint_position_controller/command", Float64, queue_size=1)
         self.pub_fl_r = rospy.Publisher("fl_rotation_joint_position_controller/command", Float64, queue_size=1)
