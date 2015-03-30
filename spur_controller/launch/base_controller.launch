@@ -1,7 +1,7 @@
 <launch>
   <node pkg="spur_controller" name="spur_base_controller"
         type="base_controller.py" output="screen" ns="/spur">
-    <remap from="cmd_vel" to="/cmd_vel" />
+    <remap from="spur/cmd_vel" to="/spur/cmd_vel" />
     <remap from="odom" to="/odom" />
   </node>
   <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
