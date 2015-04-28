@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_kb" output="screen">
+    <remap from="/cmd_vel" to="spur/cmd_vel"/>
+  </node>
+</launch>
