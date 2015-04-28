@@ -2,8 +2,8 @@
 Changelog for package spur
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.1 (2015-04-29)
+------------------
 * Enable Odometry RViz plugin.
 * (Feature) Add a launch for joy, kb teleop
 * Contributors: Isaac IY Saito
