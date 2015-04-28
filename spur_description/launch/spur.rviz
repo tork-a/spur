@@ -7,7 +7,7 @@ Panels:
         - /Global Options1
         - /Status1
         - /TF1
-        - /TF1/Frames1
+        - /Odometry1
       Splitter Ratio: 0.5
     Tree Height: 601
   - Class: rviz/Selection
@@ -454,6 +454,16 @@ Visualization Manager:
                           {}
       Update Interval: 0
       Value: true
+    - Angle Tolerance: 0.1
+      Class: rviz/Odometry
+      Color: 255; 25; 0
+      Enabled: true
+      Keep: 100
+      Length: 0.8
+      Name: Odometry
+      Position Tolerance: 0.1
+      Topic: /odom
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -511,5 +521,3 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1216
-  X: 51
-  Y: 50
