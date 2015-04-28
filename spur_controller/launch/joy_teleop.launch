@@ -1,0 +1,4 @@
+<launch>
+  <remap from="cmd_vel" to="spur/cmd_vel"/>
+  <include file="$(find teleop_twist_joy)/launch/teleop.launch" />
+</launch>
