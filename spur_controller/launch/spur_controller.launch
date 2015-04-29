@@ -1,8 +1,8 @@
 <launch>
   <!-- Debug Info -->
   <arg name="sim" default="false" />
-  <arg unless="$(arg sim)" name="spur_controller_args" value="" />
-  <arg     if="$(arg sim)" name="spur_controller_args" value="--dummy MX-106" />
+  <arg unless="$(arg sim)" name="spur_controller_args" default="" />
+  <arg     if="$(arg sim)" name="spur_controller_args" default="--dummy MX-106" />
 
   <!-- Debug Info -->
   <arg name="debug" default="false" />

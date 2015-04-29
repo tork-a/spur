@@ -1,13 +1,13 @@
 <launch>
   <!-- Debug Info -->
   <arg name="sim" default="false" />
-  <arg unless="$(arg sim)" name="spur_controller_args" value="" />
-  <arg     if="$(arg sim)" name="spur_controller_args" value="--dummy MX-106" />
+  <arg unless="$(arg sim)" name="spur_controller_args" default="" />
+  <arg     if="$(arg sim)" name="spur_controller_args" default="--dummy MX-106" />
 
   <!-- Debug Info -->
   <arg name="debug" default="false" />
-  <arg unless="$(arg debug)" name="launch_prefix" value="" />
-  <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+  <arg unless="$(arg debug)" name="launch_prefix" default="" />
+  <arg     if="$(arg debug)" name="launch_prefix" default="gdb --ex run --args" />
 
   <!-- Start the Dynamixel motor manager to control all spur servos  -->
   <group ns="spur" >
