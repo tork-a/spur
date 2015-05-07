@@ -2,8 +2,8 @@
 Changelog for package spur
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.2 (2015-05-07)
+------------------
 * (Fix) Correct sides of wheels (replacing L and R).
 * (Feat.) Separate launches to allow dynamixel to start by itself.
 * (Maintenance) More correct dependency.

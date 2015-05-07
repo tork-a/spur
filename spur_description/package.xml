@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>spur_description</name>
-  <version>0.1.1</version>
+  <version>0.1.2</version>
   <description>The spur_description package</description>
 
   <maintainer email="dev@opensource-robotics.tokyo.jp">TORK</maintainer>
