@@ -2,6 +2,11 @@
 Changelog for package spur_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* joy launch improvement
+* Contributors: Isaac IY Saito
+
 0.1.2 (2015-05-07)
 ------------------
 * (Fix) Correct sides of wheels (replacing L and R).
