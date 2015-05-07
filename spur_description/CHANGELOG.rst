@@ -2,6 +2,9 @@
 Changelog for package spur_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.1 (2015-04-29)
 ------------------
 * Enable Odometry RViz plugin.

@@ -2,6 +2,12 @@
 Changelog for package spur_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* (Fix) Correct sides of wheels (replacing L and R).
+* (Feat.) Separate launches to allow dynamixel to start by itself.
+* Contributors: Isaac IY Saito
+
 0.1.1 (2015-04-29)
 ------------------
 * (Feature) Add a launch for joy, kb teleop
