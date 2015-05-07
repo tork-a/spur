@@ -19,6 +19,8 @@
   <run_depend>gazebo_ros</run_depend>
   <run_depend>gazebo_ros_control</run_depend>
   <run_depend>robot_state_publisher</run_depend>
+  <run_depend>spur_controller</run_depend>
+  <run_depend>spur_description</run_depend>
 
   <export>
   </export>
