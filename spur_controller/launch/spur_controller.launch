@@ -1,8 +1,8 @@
 <launch>
   <!-- Debug Info -->
   <arg name="sim" default="false" />
-  <arg unless="$(arg sim)" name="spur_controller_args" value="" />
-  <arg     if="$(arg sim)" name="spur_controller_args" value="--dummy MX-106" />
+  <arg unless="$(arg sim)" name="spur_controller_args" default="" />
+  <arg     if="$(arg sim)" name="spur_controller_args" default="--dummy MX-106" />
 
   <!-- Debug Info -->
   <arg name="debug" default="false" />
@@ -13,55 +13,14 @@
   <arg name="model" value="$(find spur_description)/urdf/spur.urdf.xacro"  />
   <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
 
-  <!-- Start the Dynamixel motor manager to control all spur servos  -->
-  <group ns="spur" >
-    <node name="spur_controller_manager" pkg="dynamixel_controllers"
-          type="controller_manager.py" required="true" output="screen"
-          args="$(arg spur_controller_args)" launch-prefix="$(arg launch_prefix)">
-      <rosparam file="$(find spur_controller)/config/dynamixel_ports.yaml" command="load"/>
-    </node>
-
-    <!-- Load the joint controller configuration from a YAML file -->
-    <rosparam file="$(find spur_controller)/config/spur_controller_configuration.yaml"
-              command="load"/>
-
-    <!-- Start the Steering and Wheel controllers -->
-    <node name="dynamixel_controller_spawner_MX106"
-          pkg="dynamixel_controllers"
-          type="controller_spawner.py"
-          args="--manager=spur_controller_manager
-                --port=dynamixel_MX106
-                --type=simple
-                fl_rotation_joint_position_controller
-                bl_rotation_joint_position_controller
-                br_rotation_joint_position_controller
-                fr_rotation_joint_position_controller
-                fl_wheel_joint_velocity_controller
-                bl_wheel_joint_velocity_controller
-                br_wheel_joint_velocity_controller
-                fr_wheel_joint_velocity_controller
-                "
-          output="screen" />
-
-    <!-- Start the joint state publishers -->
-    <node name="joint_state_publisher_spawner"
-          pkg="dynamixel_controllers"
-          type="controller_spawner.py"
-          args="--manager=spur_controller_manager
-                --port=dynamixel_MX106
-                --type=meta
-                joint_state_publisher
-                fl_rotation_joint_position_controller
-                bl_rotation_joint_position_controller
-                br_rotation_joint_position_controller
-                fr_rotation_joint_position_controller
-                fl_wheel_joint_velocity_controller
-                bl_wheel_joint_velocity_controller
-                br_wheel_joint_velocity_controller
-                fr_wheel_joint_velocity_controller
-                "
-          output="screen" />
-  </group>
+  <!-- Fire up dynamixel -->
+  <include file="$(find spur_controller)/launch/spur_dynamixel.launch">
+    <arg name="sim" value="$(arg sim)" />
+    <arg name="spur_controller_args" value="$(arg spur_controller_args)" />
+    <!-- Debug Info -->
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="launch_prefix" value="$(arg launch_prefix)" />
+  </include>
 
   <!-- Start the Base Controller -->
   <include file="$(find spur_controller)/launch/base_controller.launch" />

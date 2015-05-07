@@ -33,7 +33,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 DATE=`date`
-joints="fl_rotation_joint bl_rotation_joint br_rotation_joint fr_rotation_joint fl_wheel_joint bl_wheel_joint br_wheel_joint fr_wheel_joint larm_elbow_p_joint larm_shoulder_p_joint larm_shoulder_r_joint larm_shoulder_y_joint larm_wrist_p_joint larm_wrist_r_joint rarm_elbow_p_joint rarm_shoulder_p_joint rarm_shoulder_r_joint rarm_shoulder_y_joint rarm_wrist_p_joint rarm_wrist_r_joint"
+joints="fr_rotation_joint br_rotation_joint bl_rotation_joint fl_rotation_joint fr_wheel_joint br_wheel_joint bl_wheel_joint fl_wheel_joint larm_elbow_p_joint larm_shoulder_p_joint larm_shoulder_r_joint larm_shoulder_y_joint larm_wrist_p_joint larm_wrist_r_joint rarm_elbow_p_joint rarm_shoulder_p_joint rarm_shoulder_r_joint rarm_shoulder_y_joint rarm_wrist_p_joint rarm_wrist_r_joint"
 
 cat <<EOF
 ###
