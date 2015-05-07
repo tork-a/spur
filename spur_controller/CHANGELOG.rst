@@ -2,8 +2,8 @@
 Changelog for package spur_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.3 (2015-05-07)
+------------------
 * joy launch improvement
 * Contributors: Isaac IY Saito
 
