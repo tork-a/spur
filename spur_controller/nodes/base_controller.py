@@ -162,10 +162,10 @@ class BaseController:
         self.pub_fl_w.publish(Float64(   fl_v/(diameter / 2.0)))
         self.pub_br_w.publish(Float64(-1*br_v/(diameter / 2.0)))
         self.pub_bl_w.publish(Float64(   bl_v/(diameter / 2.0)))
-        self.pub_fr_r.publish(Float64(fr_a))
-        self.pub_fl_r.publish(Float64(fl_a))
-        self.pub_br_r.publish(Float64(br_a))
-        self.pub_bl_r.publish(Float64(bl_a))
+        self.pub_fr_r.publish(Float64(-1*fr_a))  # All steerage wheels' rotational direction needs
+        self.pub_fl_r.publish(Float64(-1*fl_a))  # to be negated since they are upside down.
+        self.pub_br_r.publish(Float64(-1*br_a))
+        self.pub_bl_r.publish(Float64(-1*bl_a))
         self.pub_odom.publish(self.odom)
 
     def cmdCb(self, msg):
