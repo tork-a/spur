@@ -2,13 +2,13 @@
 <package>
   <name>spur_gazebo</name>
   <version>0.1.3</version>
-  <description>The spur_description package</description>
+  <description>3D simulation package for SPUR omni-directional mobile manipulator robot made at Tamagawa University.</description>
 
+  <maintainer email="okdhryk@gmail.com">Hiroyuki Okada</maintainer>
   <maintainer email="dev@opensource-robotics.tokyo.jp">TORK</maintainer>
-
   <license>BSD</license>
-
   <author email="534o@opensource-robotics.tokyo.jp">Tokyo Opensource Robotics Programmer 534o</author>
+  <author>Isaac I. Y. Saito</author>
 
   <url type="website">http://wiki.ros.org/spur_gazebo</url>
   <url type="bugtracker">https://github.com/tork-a/spur/issues</url>

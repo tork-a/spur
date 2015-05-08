@@ -4,6 +4,7 @@
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
+  <arg name="sec_idle" default="1.0" />
 
   <arg name="model" value="$(find spur_description)/urdf/spur.urdf.xacro"  />
 
@@ -21,5 +22,7 @@
         args="-z 1.0 -unpause -urdf -model spur -param robot_description" />
 
   <include file="$(find spur_gazebo)/launch/spur_gazebo_control.launch" />
-  <include file="$(find spur_controller)/launch/base_controller.launch" />
+  <include file="$(find spur_controller)/launch/base_controller.launch">
+    <arg name="sec_idle" value="$(arg sec_idle)"/>
+  </include>
 </launch>

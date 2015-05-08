@@ -2,10 +2,12 @@
 <package>
   <name>spur</name>
   <version>0.1.3</version>
-  <description>The spur package</description>
+  <description>Meta package for SPUR omni-directional mobile manipulator robot made at Tamagawa University.</description>
 
+  <maintainer email="okdhryk@gmail.com">Hiroyuki Okada</maintainer>
   <maintainer email="dev@opensource-robotics.tokyo.jp">TORK</maintainer>
   <author email="534o@opensource-robotics.tokyo.jp">Tokyo Opensource Robotics Programmer 534o</author>
+  <author>Isaac I. Y. Saito</author>
   <license>BSD</license>
   <url type="website">http://wiki.ros.org/spur</url>
   <url type="bugtracker">https://github.com/tork-a/spur/issues</url>

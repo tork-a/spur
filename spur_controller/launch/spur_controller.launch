@@ -1,4 +1,6 @@
 <launch>
+  <arg name="sec_idle" default="1.0" />
+
   <!-- Debug Info -->
   <arg name="sim" default="false" />
   <arg unless="$(arg sim)" name="spur_controller_args" default="" />
@@ -23,7 +25,9 @@
   </include>
 
   <!-- Start the Base Controller -->
-  <include file="$(find spur_controller)/launch/base_controller.launch" />
+  <include file="$(find spur_controller)/launch/base_controller.launch">
+    <arg name="sec_idle" value="$(arg sec_idle)"/>
+  </include>
 
   <!-- convert joint states to TF transforms for rviz, etc -->
   <node name="robot_state_publisher" pkg="robot_state_publisher"
