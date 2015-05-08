@@ -1,6 +1,9 @@
 <launch>
+  <arg name="sec_idle" default="3.0" />
+  
   <node pkg="spur_controller" name="spur_base_controller"
         type="base_controller.py" output="screen" ns="/spur">
+    <param name="sec_idle" value="$(arg sec_idle)" />
     <remap from="spur/cmd_vel" to="/spur/cmd_vel" />
     <remap from="odom" to="/odom" />
   </node>

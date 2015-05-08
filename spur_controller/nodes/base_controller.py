@@ -95,12 +95,14 @@ class BaseController:
         self.control()
         time.sleep(1)
 
-    def control(self):
+    def control(self, sec_idle=1.0):
         '''
         @brief Intended to be called periodically.
                Reads the last velocity command, interpretes for SPUR mechanism,
                then publish as Float64 that is the data type
                dynamixel_controllers receive.
+        @type sec_idle: float
+        @param sec_idle: Ideling seconds before robot stops moving
         '''
         control_interval = (rospy.Time.now() - self.last_control_time).to_sec()
         self.last_control_time = rospy.Time.now()
@@ -122,7 +124,7 @@ class BaseController:
         self.odom.twist.twist.angular.z += self.cmd.angular.z * control_interval
         self.odom.header.stamp = rospy.Time.now()
 
-        if (rospy.Time.now() - self.last_cmd_time).to_sec() > 5: ## if new cmd_vel did not comes for 5 sec
+        if (rospy.Time.now() - self.last_cmd_time).to_sec() > sec_idle: ## if new cmd_vel did not comes for 5 sec
             self.last_cmd_msg = Twist()
 
         velocity_limit = 0.001
@@ -198,10 +200,11 @@ if __name__ == "__main__":
 
         b = BaseController()
         rate = rospy.Rate(args.rate)
+        sec_idle = rospy.get_param('/spur/spur_base_controller/sec_idle', 1.0)
 
         # Keep looping unless the system receives shutdown signal.
         while not rospy.is_shutdown():
-            b.control()
+            b.control(sec_idle)
             rate.sleep()
 
     except rospy.ROSInterruptException:
