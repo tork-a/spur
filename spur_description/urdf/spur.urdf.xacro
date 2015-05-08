@@ -95,7 +95,7 @@
 
   <xacro:macro name="odom_wheel_rotate" params="suffix">
     <joint name="${suffix}_rotation_joint" type="revolute">
-      <axis xyz="0 0 1" />
+      <axis xyz="0 0 -1" />
       <limit lower="${-90*M_PI/180.0}" upper="${90*M_PI/180.0}" effort="300" velocity="1"/>
       <dynamics damping="50.0" friction="1.0" />
       <xacro:insert_block name="origin" />
