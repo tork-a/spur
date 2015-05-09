@@ -2,8 +2,8 @@
 Changelog for package spur_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.0 (2015-05-09)
+------------------
 * (Feature) Allow configuring idle time for Twist command.
 * (Doc) Copyright to the project owner. Update package description.
 * Contributors: Isaac IY Saito

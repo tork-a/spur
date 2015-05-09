@@ -2,8 +2,8 @@
 Changelog for package spur
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.0 (2015-05-09)
+------------------
 * (Fix) Complete adjusting model to real robot
 * (Fix) Specific dependency
 * (Feature) Allow configuring idle time for Twist command.
