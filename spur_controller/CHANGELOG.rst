@@ -2,6 +2,15 @@
 Changelog for package spur_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* (Fix) Adjust spur controller to the real robot config
+* (Fix) Specific dependency
+* (Feature) Allow configuring idle time for Twist command.
+* (Doc) Copyright to the project owner. Update package description.
+* (Doc) PEP8
+* Contributors: Isaac IY Saito
+
 0.1.3 (2015-05-07)
 ------------------
 * joy launch improvement

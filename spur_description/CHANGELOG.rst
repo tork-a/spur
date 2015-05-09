@@ -2,6 +2,13 @@
 Changelog for package spur_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* (Fix) Complete adjusting model to real robot
+* (Fix) Specific dependency
+* (Doc) Copyright to the project owner. Update package description.
+* Contributors: Isaac IY Saito
+
 0.1.3 (2015-05-07)
 ------------------
 
