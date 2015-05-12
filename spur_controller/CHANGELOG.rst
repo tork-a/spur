@@ -2,8 +2,8 @@
 Changelog for package spur_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.1 (2015-05-13)
+------------------
 * (Fix) Add more dependency
 * Contributors: Isaac IY Saito
 
