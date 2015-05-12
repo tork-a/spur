@@ -2,6 +2,9 @@
 Changelog for package spur_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.2.0 (2015-05-09)
 ------------------
 * (Fix) Complete adjusting model to real robot
