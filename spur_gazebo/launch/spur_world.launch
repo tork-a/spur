@@ -5,6 +5,7 @@
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
   <arg name="sec_idle" default="1.0" />
+  <arg name="visualize_laser" default="false" />
 
   <arg name="model" value="$(find spur_description)/urdf/spur.urdf.xacro"  />
 
@@ -16,7 +17,7 @@
     <arg name="headless" value="$(arg headless)"/>
   </include>
 
-  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model) visualize_laser:=$(arg visualize_laser)" />
 
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
         args="-z 1.0 -unpause -urdf -model spur -param robot_description" />

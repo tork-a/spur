@@ -1,5 +1,12 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot 
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Read variable from commandline http://answers.ros.org/question/38956/pass-parameters-to-xacro-in-launch-file -->
+  <xacro:arg name="visualize_laser" default="false"/>
+         
   <!-- ros_control plugin -->
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
@@ -30,4 +37,37 @@
     </transmission>
   </xacro:macro>
 
+  <!-- URG -->
+  <!-- http://answers.ros.org/question/44691/how-to-put-hokuyo-laser-sensor-on-p2os/?answer=44785#post-id-44785 -->
+  <gazebo reference="hokuyo_sensor_link"> 
+      <sensor type="ray" name="laser">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>$(arg visualize_laser)</visualize>
+        <update_rate>40</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>720</samples>
+              <resolution>1</resolution>
+              <min_angle>-1.570796</min_angle>
+              <max_angle>1.570796</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.1</min>
+            <max>4.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>Gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name="hokuyo_node" filename="libgazebo_ros_laser.so">
+          <topicName>/spur/laser/scan</topicName>
+          <frameName>/hokuyo_sensor_link</frameName>
+        </plugin>
+    </sensor>
+  </gazebo> 
 </robot>
