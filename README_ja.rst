@@ -74,8 +74,8 @@ Usage
 
 .. code-block::
 
- $ roslaunch spur_gazebo spur_world.launch           # Simulation
- $ roslaunch spur_controller spur_controller.launch  # 実機
+ $ roslaunch spur_gazebo spur_world.launch    # Simulation
+ $ roslaunch spur_bringup minimal.launch      # 実機
 
 テレオペレーション
 ------------------------------------------------
@@ -93,8 +93,8 @@ Usage
 
 .. code-block::
 
- $ roslaunch spur_controller joy_teleop.launch
- $ roslaunch spur_controller joy_teleop.launch joy_port:=/dev/input/js1  # If joy is found on a different port
+ $ roslaunch spur_bringup joy_teleop.launch
+ $ roslaunch spur_bringup joy_teleop.launch joy_port:=/dev/input/js1  # If joy is found on a different port
 
 3. PS3-Elecom を使うためには, "Mode" ボタンを二回押して，アナログ入力を有効化する．動作を行う際はボタン 9 を押し下げ続ける．
 
@@ -103,7 +103,7 @@ Usage
 
 .. code-block::
 
- $ roslaunch spur_controller kb_teleop.launch
+ $ roslaunch spur_bringup kb_teleop.launch
 
 コミュニティ
 ============
