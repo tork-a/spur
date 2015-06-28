@@ -4,6 +4,9 @@
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
        xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
        xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Read variable from commandline http://answers.ros.org/question/38956/pass-parameters-to-xacro-in-launch-file -->
+  <xacro:arg name="visualize_laser" default="false"/>
+         
   <!-- ros_control plugin -->
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
@@ -39,7 +42,7 @@
   <gazebo reference="hokuyo_sensor_link"> 
       <sensor type="ray" name="laser">
         <pose>0 0 0 0 0 0</pose>
-        <visualize>true</visualize>
+        <visualize>$(arg visualize_laser)</visualize>
         <update_rate>40</update_rate>
         <ray>
           <scan>

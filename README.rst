@@ -96,6 +96,18 @@ Run the robot (simulation & real)
  $ roslaunch spur_gazebo spur_world.launch           # Simulation
  $ roslaunch spur_controller spur_controller.launch  # Real robot
 
+Visualize laser range on Gazebo
+########################################
+
+.. code-block::
+
+ $ roslaunch spur_gazebo spur_world.launch visualize_laser:=true
+
+.. image:: https://cloud.githubusercontent.com/assets/1840401/8394557/2ff52470-1cf2-11e5-8dcc-6a2565463694.png
+   :width: 500 px
+   :alt: Laser range visualized on RViz and Gazebo
+   :align: left
+
 Teleoperation
 ------------------------------------------------
 
@@ -123,7 +135,6 @@ Teleop with keyboard
 .. code-block::
 
  $ roslaunch spur_controller kb_teleop.launch
-
 
 Configuration
 ------------------------------
