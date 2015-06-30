@@ -2,6 +2,13 @@
 Changelog for package spur
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [Feat] Enable Hokuyo
+* [Sys] Adjust to bringup pkg. Add 2dnav pkg up to gmapping feature
+* [Sys] Port general stuff to spur_bringup package
+* Contributors: Isaac IY Saito
+
 0.2.1 (2015-05-13)
 ------------------
 * (Fix) Add more dependency

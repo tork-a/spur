@@ -2,6 +2,11 @@
 Changelog for package spur_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [Feat] Enable Hokuyo
+* Contributors: Isaac IY Saito
+
 0.2.1 (2015-05-13)
 ------------------
 
