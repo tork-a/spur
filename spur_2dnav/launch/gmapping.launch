@@ -1,0 +1,6 @@
+<launch>
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <remap from="scan" to="/spur/laser/scan" />
+    <rosparam file="$(find spur_2dnav)/config/gmapping.yaml" command="load" />
+  </node>
+</launch>

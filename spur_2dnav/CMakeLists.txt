@@ -1,11 +1,16 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(spur_bringup)
+project(spur_2dnav)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  urg_node
+  amcl
+  dwa_local_planner
+  gmapping
+  map_server
+  move_base
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
@@ -79,8 +84,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES spur_bringup
-#  CATKIN_DEPENDS spur_controller urg_node
+#  LIBRARIES spur_2dnav
+#  CATKIN_DEPENDS amcl dwa_local_planner gmapping map_server move_base tf
 #  DEPENDS system_lib
 )
 
@@ -96,19 +101,19 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(spur_bringup
-#   src/${PROJECT_NAME}/spur_bringup.cpp
+# add_library(spur_2dnav
+#   src/${PROJECT_NAME}/spur_2dnav.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(spur_bringup_node src/spur_bringup_node.cpp)
+# add_executable(spur_2dnav_node src/spur_2dnav_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(spur_bringup_node spur_bringup_generate_messages_cpp)
+# add_dependencies(spur_2dnav_node spur_2dnav_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(spur_bringup_node
+# target_link_libraries(spur_2dnav_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -127,32 +132,32 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS spur_bringup spur_bringup_node
+# install(TARGETS spur_2dnav spur_2dnav_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
 ## Mark cpp header files for installation
-#install(DIRECTORY include/${PROJECT_NAME}/
+# install(DIRECTORY include/${PROJECT_NAME}/
 #   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
 #   FILES_MATCHING PATTERN "*.h"
 #   PATTERN ".svn" EXCLUDE
 # )
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
-#install(FILES
-install(DIRECTORY config launch
-   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-   USE_SOURCE_PERMISSIONS
-)
+# install(FILES
+#   # myfile1
+#   # myfile2
+#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+# )
 
 #############
 ## Testing ##
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_spur_bringup.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_spur_2dnav.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

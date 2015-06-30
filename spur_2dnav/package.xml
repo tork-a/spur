@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <name>spur_2dnav</name>
+  <version>0.2.1</version>
+  <description>The spur_2dnav package holds common configuration options for running SPUR in 2D environment.</description>
+
+  <maintainer email="okdhryk@gmail.com">Hiroyuki Okada</maintainer>
+  <maintainer email="dev@opensource-robotics.tokyo.jp">TORK</maintainer>
+  <license>BSD</license>
+  <author>Isaac I. Y. Saito</author>
+
+  <url type="website">http://wiki.ros.org/spur_2dnav</url>
+  <url type="bugtracker">https://github.com/tork-a/spur/issues</url>
+  <url type="repository">https://github.com/tork-a/spur</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>amcl</run_depend>
+  <run_depend>dwa_local_planner</run_depend>
+  <run_depend>gmapping</run_depend>
+  <run_depend>map_server</run_depend>
+  <run_depend>move_base</run_depend>
+  <run_depend>tf</run_depend>
+
+  <export />
+</package>
