@@ -1,0 +1,40 @@
+<!-- This fires up AMCL. 
+     If simulator specified, this uses Willow Garage map 
+-->
+<launch>
+  <arg name="custom_param_file" default="$(find spur_2dnav)/config/dummy.yaml"/>
+  <arg name="sim" default="false" />
+  <arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/>
+  <arg name="run_rviz" default="true" />
+
+  <group if="$(arg sim)">
+    <!-- Run Gazebo -->
+    <include file="$(find spur_gazebo)/launch/spur_world.launch">
+      <arg name="visualize_laser" value="true" />
+    </include>
+  </group>
+
+  <!-- Run RViz -->
+  <group if="$(arg run_rviz)">
+    <include file="$(find spur_description)/launch/rviz.launch">
+      <arg name="rvizconfig" value="$(find spur_description)/launch/spur_amcl.rviz" />
+    </include>
+  </group>
+
+<!-- 7/5/2015 temporarilly disable due to the lack of self-filter for spur
+  <node name="laser_filter" pkg="turtlebot_navigation" type="laser_footprint_filter" />
+-->
+
+  <!-- Run the map server -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!--- Run AMCL -->
+  <include file="$(find spur_2dnav)/launch/includes/amcl.launch.xml">
+    <arg name="scan_topic" value="/spur/laser/scan" />
+  </include>
+
+  <!--- Run Move Base -->
+  <include file="$(find spur_2dnav)/launch/includes/move_base.launch.xml">
+    <arg name="custom_param_file" value="$(arg custom_param_file)"/>
+  </include>
+</launch>

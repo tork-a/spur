@@ -462,9 +462,6 @@ Visualization Manager:
                           {}
                         rarm_shoulder_y_body_2:
                           {}
-        map:
-          odom:
-            {}
       Update Interval: 0
       Value: true
     - Angle Tolerance: 0.1

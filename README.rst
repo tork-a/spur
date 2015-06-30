@@ -165,7 +165,22 @@ After launching above, follow existing other tutorials (e.g. `one from Turtlebot
 Autonomous move and collision avoidance using map
 ########################################################
 
-(TBD)
+With only a single command you can invoke AMCL mode, assuming that this will be the most frequently used operation. Just notice:
+
+ * Simulation mode uses Willow Garage map by default
+ * Real robot mode **requires** map file as an argument
+
+Run `move_base <http://wiki.ros.org/move_base?distro=indigo>`_ along with other services (same as when you created a map).
+
+.. code-block::
+
+ term-1-sim$ roslaunch spur_2dnav amcl.launch sim:=true
+ term-1-real$ roslaunch spur_2dnav amcl.launch map_file:=%PATH_MAPFILE%
+
+ (Ex.) 
+ term-1-real$ roslaunch spur_2dnav amcl.launch map_file:=`rospack find spur_2dnav`/launch/mysweethome.yaml
+
+Then follow existing tutorials (e.g. `Using rviz with the Navigation Stack <http://wiki.ros.org/navigation/Tutorials/Using%20rviz%20with%20the%20Navigation%20Stack>`_).
 
 Configuration
 ------------------------------
