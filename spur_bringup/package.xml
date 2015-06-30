@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <name>spur_bringup</name>
+  <version>0.2.1</version>
+  <description>This package provides starting scripts for Spur robot</description>
+
+  <maintainer email="okdhryk@gmail.com">Hiroyuki Okada</maintainer>
+  <maintainer email="dev@opensource-robotics.tokyo.jp">TORK</maintainer>
+  <license>BSD</license>
+  <author>Isaac I. Y. Saito</author>
+
+  <url type="website">http://wiki.ros.org/spur_bringup</url>
+  <url type="bugtracker">https://github.com/tork-a/spur/issues</url>
+  <url type="repository">https://github.com/tork-a/spur</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>dynamixel_controllers</run_depend>
+  <run_depend>joy</run_depend>
+  <run_depend>spur_controller</run_depend>
+  <run_depend>teleop_twist_joy</run_depend>
+  <run_depend>teleop_twist_keyboard</run_depend>
+  <run_depend>urg_node</run_depend>
+
+  <export />
+</package>

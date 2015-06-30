@@ -88,13 +88,13 @@ Usage
 
 As always the case with all kinds of robots, you should first test on the simulator then run the real robot.
 
-Run the robot (simulation & real)
+Run the robot base (simulation & real)
 ------------------------------------------------
 
 .. code-block::
 
- $ roslaunch spur_gazebo spur_world.launch           # Simulation
- $ roslaunch spur_controller spur_controller.launch  # Real robot
+ $ roslaunch spur_gazebo spur_world.launch    # Simulation
+ $ roslaunch spur_bringup minimal.launch      # Real robot
 
 Visualize laser range on Gazebo
 ########################################
@@ -124,8 +124,8 @@ The following note is confirmed with `PS3-Elecom <http://www.amazon.co.jp/ELECOM
 
 .. code-block::
 
- $ roslaunch spur_controller joy_teleop.launch
- $ roslaunch spur_controller joy_teleop.launch joy_port:=/dev/input/js1  # If joy is found on a different port
+ $ roslaunch spur_bringup joy_teleop.launch
+ $ roslaunch spur_bringup joy_teleop.launch joy_port:=/dev/input/js1    # If joy is found on a different port
 
 3. To use PS3-Elecom, press "Mode" button twice to enable analog input. Also you may need to keep pressing the button 9 during operation.
 
@@ -134,7 +134,29 @@ Teleop with keyboard
 
 .. code-block::
 
- $ roslaunch spur_controller kb_teleop.launch
+ $ roslaunch spur_bringup kb_teleop.launch
+
+Autonomous 2D navigation
+-------------------------
+
+Create 2D map
+##############
+
+Run RViz, `gmapping <http://wiki.ros.org/gmapping?distro=indigo>`_, along with robot's controller.
+
+.. code-block::
+
+ term-1a$ roslaunch spur_bringup minimal.launch                            # Real robot
+ term-1b$ roslaunch spur_gazebo spur_world.launch visualize_laser:=true    # Simulation
+ term-2$ roslaunch spur_description rviz.launch 
+ term-3$ roslaunch spur_2dnav gmapping.launch
+
+After launching above, follow existing other tutorials (e.g. `one from Turtlebot <http://wiki.ros.org/turtlebot_gazebo/Tutorials/indigo/Make%20a%20map%20and%20navigate%20with%20it>`_).
+
+Autonomous move and collision avoidance using map
+########################################################
+
+(TBD)
 
 Configuration
 ------------------------------
