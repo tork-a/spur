@@ -2,8 +2,8 @@
 Changelog for package spur_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.2 (2015-06-30)
+------------------
 * Adjust to bringup pkg. Add 2dnav pkg up to gmapping feature.
 * Add bringup package. Move non-controller files into it. Integrate URG.
 * Contributors: Isaac IY Saito

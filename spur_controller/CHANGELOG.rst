@@ -2,8 +2,8 @@
 Changelog for package spur_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.2 (2015-06-30)
+------------------
 * [Sys] Port general stuff to spur_bringup package
 * Contributors: Isaac IY Saito
 

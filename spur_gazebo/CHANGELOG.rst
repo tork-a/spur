@@ -2,8 +2,8 @@
 Changelog for package spur_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.2 (2015-06-30)
+------------------
 * [Feat] Selectable laser visualization via roslaunch argument
 * [Sys] Adjust to bringup pkg. Add 2dnav pkg up to gmapping feature
 * Contributors: Isaac IY Saito
