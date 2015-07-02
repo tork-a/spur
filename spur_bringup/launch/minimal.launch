@@ -17,7 +17,9 @@
     <arg name="debug" value="false" />
   </include>
 
-  <node name="urg" pkg="urg_node" type="urg_node">
-    <remap from="/scan" to="/spur/laser/scan" />
-  </node>
+  <group unless="$(arg sim)" >
+    <node name="urg" pkg="urg_node" type="urg_node">
+      <remap from="/scan" to="/spur/laser/scan" />
+    </node>
+  </group>
 </launch>
