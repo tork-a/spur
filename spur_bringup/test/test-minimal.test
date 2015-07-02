@@ -1,0 +1,10 @@
+<launch>
+  <include file="$(find spur_bringup)/launch/minimal.launch" >
+    <arg name="sim" value="true" />
+  </include>
+  <param name="hztest_joint_states/topic" value="/spur/joint_states" />  
+  <param name="hztest_joint_states/hz" value="50.0" />
+  <param name="hztest_joint_states/hzerror" value="5" />
+  <param name="hztest_joint_states/test_duration" value="5.0" />    
+  <test test-name="hztest_joint_states" pkg="rostest" type="hztest"  name="hztest_joint_states" />
+</launch>
