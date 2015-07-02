@@ -13,7 +13,8 @@
 
   <!-- load robot_description -->
   <arg name="model" value="$(find spur_description)/urdf/spur.urdf.xacro"  />
-  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+  <arg name="visualize_laser" value="false" />
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model) visualize_laser:=$(arg visualize_laser)" />
 
   <!-- Fire up dynamixel -->
   <include file="$(find spur_controller)/launch/spur_dynamixel.launch">
