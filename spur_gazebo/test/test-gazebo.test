@@ -1,0 +1,11 @@
+<launch>
+  <include file="$(find spur_gazebo)/launch/spur_world.launch" >
+    <arg name="gui" value="false" />
+    <arg name="world_file" value="worlds/empty.world" />
+  </include>
+  <param name="hztest_joint_states/topic" value="/spur/joint_states" />  
+  <param name="hztest_joint_states/hz" value="50.0" />
+  <param name="hztest_joint_states/hzerror" value="5" />
+  <param name="hztest_joint_states/test_duration" value="5.0" />    
+  <test test-name="hztest_joint_states" pkg="rostest" type="hztest"  name="hztest_joint_states" retry="2" />
+</launch>
