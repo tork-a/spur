@@ -4,7 +4,7 @@
 
 joint_state_publisher:
    controller:
-       package: dynamixel_controllers
+       package: spur_controller
        module: joint_state_publisher
        type: JointStatePublisher
 

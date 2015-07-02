@@ -3,6 +3,8 @@ project(spur_controller)
 
 find_package(catkin REQUIRED)
 
+catkin_python_setup()
+
 catkin_package()
 
 install(DIRECTORY launch nodes config
