@@ -2,6 +2,15 @@
 Changelog for package spur_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [feat] Add simulation capability of dynamixel's joint_state_publisher (temporary addition until https://github.com/arebgun/dynamixel_motor/pull/27 and https://github.com/arebgun/dynamixel_motor/pull/28 get merged)
+* [sys] Fix files wrong location
+* [sys] Fix CMake build rule `issue40 <https://github.com/tork-a/spur/pull/40>`_
+* [sys] urg_node only runs with simulation
+* [sys] add test
+* Contributors: Isaac IY Saito, Tokyo Opensource Robotics Programmer 534o
+
 0.2.2 (2015-06-30)
 ------------------
 * Adjust to bringup pkg. Add 2dnav pkg up to gmapping feature.

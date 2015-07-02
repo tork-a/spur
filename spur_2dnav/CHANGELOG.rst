@@ -2,6 +2,11 @@
 Changelog for package spur_2dnav
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [sys] Fix CMake build rule `issue40 <https://github.com/tork-a/spur/pull/40>`_
+* Contributors: Isaac IY Saito
+
 0.2.2 (2015-06-30)
 ------------------
 * Adjust to bringup pkg. Add 2dnav pkg up to gmapping feature.

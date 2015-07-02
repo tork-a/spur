@@ -2,6 +2,13 @@
 Changelog for package spur_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [feat] Add simulation capability of dynamixel's joint_state_publisher (temporary addition until https://github.com/arebgun/dynamixel_motor/pull/27 and https://github.com/arebgun/dynamixel_motor/pull/28 get merged)
+* [sys] Fix files wrong location
+* [sys] workaround for travis test (pass visualize_laser as arg. Only hydro can be tested on travis)
+* Contributors: Isaac IY Saito, TORK 534o
+
 0.2.2 (2015-06-30)
 ------------------
 * [Sys] Port general stuff to spur_bringup package

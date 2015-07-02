@@ -2,6 +2,9 @@
 Changelog for package spur_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.2.2 (2015-06-30)
 ------------------
 * [Feat] Enable Hokuyo
