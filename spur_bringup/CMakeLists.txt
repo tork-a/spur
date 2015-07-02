@@ -140,7 +140,7 @@ include_directories(
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 #install(FILES
-install(DIRECTORY config launch test
+install(DIRECTORY launch test
    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
    USE_SOURCE_PERMISSIONS
 )
