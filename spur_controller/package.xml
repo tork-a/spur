@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>spur_controller</name>
-  <version>0.2.2</version>
+  <version>0.2.3</version>
   <description>A package for mobile base control for SPUR omni-directional mobile manipulator robot made at Tamagawa University.</description>
 
   <maintainer email="okdhryk@gmail.com">Hiroyuki Okada</maintainer>

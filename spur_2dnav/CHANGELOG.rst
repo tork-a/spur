@@ -2,8 +2,8 @@
 Changelog for package spur_2dnav
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.3 (2015-07-02)
+------------------
 * [sys] Fix CMake build rule `issue40 <https://github.com/tork-a/spur/pull/40>`_
 * Contributors: Isaac IY Saito
 

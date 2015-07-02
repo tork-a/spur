@@ -2,8 +2,8 @@
 Changelog for package spur_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.3 (2015-07-02)
+------------------
 * [sys] add test
 * Contributors: TORK 534o
 

@@ -2,8 +2,8 @@
 Changelog for package spur_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.3 (2015-07-02)
+------------------
 * [feat] Add simulation capability of dynamixel's joint_state_publisher (temporary addition until https://github.com/arebgun/dynamixel_motor/pull/27 and https://github.com/arebgun/dynamixel_motor/pull/28 get merged)
 * [sys] Fix files wrong location
 * [sys] Fix CMake build rule `issue40 <https://github.com/tork-a/spur/pull/40>`_
