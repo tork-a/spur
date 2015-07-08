@@ -17,7 +17,7 @@
   <property name="wheel_radius" value="0.05" />
   <property name="wheel_width" value="0.02" />
 
-  <property name="base_width" value="0.430" />
+  <property name="base_width" value="0.30" />
   <property name="base_height" value="0.030" />
   <property name="caster_offset_x" value="0.15" />
   <property name="caster_offset_y" value="0.15" />
