@@ -20,6 +20,7 @@
   <group unless="$(arg sim)" >
     <node name="urg" pkg="urg_node" type="urg_node">
       <remap from="/scan" to="/spur/laser/scan" />
+      <param name="frame_id" value="hokuyo_sensor_link" />
     </node>
   </group>
 </launch>
