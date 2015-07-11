@@ -70,7 +70,10 @@ class BaseController:
         self.pub_br_w = rospy.Publisher("br_wheel_joint_velocity_controller/command", Float64, queue_size=1)
         self.pub_fl_w = rospy.Publisher("fl_wheel_joint_velocity_controller/command", Float64, queue_size=1)
         self.pub_fr_w = rospy.Publisher("fr_wheel_joint_velocity_controller/command", Float64, queue_size=1)
-        self.pub_odom = rospy.Publisher("odom", Odometry, queue_size=1)
+
+        self.publish_odom = rospy.get_param('~publish_odom', True)
+        if self.publish_odom:
+            self.pub_odom = rospy.Publisher("odom", Odometry, queue_size=1)
 
         self.last_cmd_msg = Twist()
         self.last_cmd_time = rospy.Time()
@@ -85,7 +88,7 @@ class BaseController:
         rospy.on_shutdown(self.cleanup)
 
         rospy.sleep(1)
-        rospy.loginfo("Start base controller")
+        rospy.loginfo("Start base controller (publish_odom: %s)"%(self.publish_odom))
 
     def cleanup(self):
         rospy.loginfo("Stop base controller")
@@ -180,7 +183,8 @@ class BaseController:
         self.pub_fl_r.publish(Float64(-1*fl_a))  # to be negated since they are upside down.
         self.pub_br_r.publish(Float64(-1*br_a))
         self.pub_bl_r.publish(Float64(-1*bl_a))
-        self.pub_odom.publish(self.odom)
+        if self.publish_odom:
+            self.pub_odom.publish(self.odom)
 
     def cmdCb(self, msg):
         self.last_cmd_msg = msg
