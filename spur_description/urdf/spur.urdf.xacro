@@ -351,7 +351,7 @@
       <inertia ixx="0.3"  ixy="0.3"  ixz="0.3" iyy="0.3"  iyz="0.3"  izz="0.3" /> 
     </inertial> 
     <visual> 
-      <origin xyz="0 0 0" rpy="3.14 0 0"/> 
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry> 
       <!-- <cylinder length="${hokuyo_length}" radius="${hokuyo_radius}" /> -->
         <mesh filename="package://gazebo_plugins/test/multi_robot_scenario/meshes/laser/hokuyo.dae"/> 
@@ -365,7 +365,7 @@
      </collision> 
   </link> 
   <joint name="laser_to_base" type="fixed"> 
-    <origin xyz="${caster_offset_x} 0 -0.05" rpy="0 0 0" /> 
+    <origin xyz="${caster_offset_x} 0 -0.05" rpy="3.14 0 0" />
     <parent link="base_link" /> 
     <child link="hokuyo_sensor_link"/> 
   </joint> 
