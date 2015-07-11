@@ -24,6 +24,7 @@ before_install:
 install:
   - sudo apt-get install -qq -y python-catkin-pkg python-rosdep python-wstool python-catkin-tools ros-$ROS_DISTRO-catkin
   - sudo rosdep init
+  - git clone https://github.com/ccny-ros-pkg/scan_tools.git src/scan_tools && (cd src/scan_tools && git checkout b5efb32268911cada4bf5144af3578a5561dcfef -b 20150711)
   - rosdep update; while [ $? != 0 ]; do sleep 1; rosdep update; done
   - rosdep install -r -n --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y	
   - sudo apt-get install -q -qq -y python-setuptools python-catkin-pkg
