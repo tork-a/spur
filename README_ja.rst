@@ -54,13 +54,15 @@ apt でのインストール (推奨)
 
 .. code-block::
 
+ $ cd ~/catkin_ws/src
  $ git clone https://github.com/130s/teleop_twist_joy.git && cd teleop_twist_joy && git checkout add/omnidir
 
 1-2. scan_tools を設定 (暫定).
 
 .. code-block::
 
- $ git clone https://github.com/ccny-ros-pkg/scan_tools.git && cd scan_tools && git checkout b5efb32268911cada4bf5144af3578a5561dcfef
+ $ cd ~/catkin_ws/src
+ $ git clone https://github.com/ccny-ros-pkg/scan_tools.git && cd scan_tools && git checkout b5efb32268911cada4bf5144af3578a5561dcfef -b 20150711
 
 2. 依存するライブラリのインストール．コンパイル．
 

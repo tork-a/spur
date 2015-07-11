@@ -73,6 +73,7 @@ This step will become not required in the future (`related <https://github.com/r
 
 .. code-block::
 
+ $ cd ~/catkin_ws/src
  $ git clone https://github.com/130s/teleop_twist_joy.git && cd teleop_twist_joy && git checkout add/omnidir
 
 1-2. Install scan matcher tools (temporarilly required until deb
@@ -80,7 +81,8 @@ release)
 
 .. code-block::
 
- $ git clone https://github.com/ccny-ros-pkg/scan_tools.git && cd scan_tools && git checkout b5efb32268911cada4bf5144af3578a5561dcfef
+ $ cd ~/catkin_ws/src
+ $ git clone https://github.com/ccny-ros-pkg/scan_tools.git && cd scan_tools && git checkout b5efb32268911cada4bf5144af3578a5561dcfef -b 20150711
 
 2. Install depended libraries. Build sources.
 
