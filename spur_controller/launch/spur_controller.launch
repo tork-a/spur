@@ -1,5 +1,6 @@
 <launch>
   <arg name="sec_idle" default="1.0" />
+  <arg name="use_base_odom" default="true" />
 
   <!-- Debug Info -->
   <arg name="sim" default="false" />
@@ -28,6 +29,7 @@
   <!-- Start the Base Controller -->
   <include file="$(find spur_controller)/launch/base_controller.launch">
     <arg name="sec_idle" value="$(arg sec_idle)"/>
+    <arg name="use_base_odom" value="$(arg use_base_odom)" />
   </include>
 
   <!-- convert joint states to TF transforms for rviz, etc -->
