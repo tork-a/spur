@@ -1,5 +1,6 @@
 <launch>
   <arg name="sec_idle" default="1.0" />
+  <arg name="use_base_odom" default="true" />
 
   <!-- Debug Info -->
   <arg name="sim" default="false" />
@@ -13,6 +14,7 @@
   <include file="$(find spur_controller)/launch/spur_controller.launch">
     <arg name="sec_idle" value="$(arg sec_idle)" />
     <arg name="sim" value="$(arg sim)" />
+    <arg name="use_base_odom" value="$(arg use_base_odom)" />
     <arg name="spur_controller_args" default="$(arg spur_controller_args)" />
     <arg name="debug" value="false" />
   </include>
