@@ -2,8 +2,8 @@
 Changelog for package spur_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.4 (2015-07-11)
+------------------
 * set use_base_odom to true as default
 * Tailor to the actual robot hardware
 * Contributors: Isaac IY Saito

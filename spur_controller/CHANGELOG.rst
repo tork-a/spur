@@ -2,8 +2,8 @@
 Changelog for package spur_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.4 (2015-07-11)
+------------------
 * set use_base_odom to true as default
 * support use_base_odom args for base_contraller, on gazebo it is dsiabled by default and on realroobt, it is enabled
 * add publish_odom parm to publish odom from base_controller

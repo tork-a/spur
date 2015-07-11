@@ -2,8 +2,8 @@
 Changelog for package spur_2dnav
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.4 (2015-07-11)
+------------------
 * add test for gmapping.launch
 * Contributors: Tokyo Opensource Robotics Programmer 534o
 

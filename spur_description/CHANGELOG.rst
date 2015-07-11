@@ -2,8 +2,8 @@
 Changelog for package spur_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.4 (2015-07-11)
+------------------
 * if you want to put urg upside down, do not change visual, but change origin
 * Fix the possible robot_state_publisher crash issue
 * Add map plugin in RViz conf (resolves #47)
