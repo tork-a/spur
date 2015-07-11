@@ -2,6 +2,11 @@
 Changelog for package spur_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* support use_base_odom args for base_contraller, on gazebo it is dsiabled by default and on realroobt, it is enabled
+* Contributors: Isaac IY Saito
+
 0.2.3 (2015-07-02)
 ------------------
 * [sys] add test

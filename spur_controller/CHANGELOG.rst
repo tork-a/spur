@@ -2,6 +2,13 @@
 Changelog for package spur_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* set use_base_odom to true as default
+* support use_base_odom args for base_contraller, on gazebo it is dsiabled by default and on realroobt, it is enabled
+* add publish_odom parm to publish odom from base_controller
+* Contributors: Isaac IY Saito
+
 0.2.3 (2015-07-02)
 ------------------
 * [feat] Add simulation capability of dynamixel's joint_state_publisher (temporary addition until https://github.com/arebgun/dynamixel_motor/pull/27 and https://github.com/arebgun/dynamixel_motor/pull/28 get merged)
