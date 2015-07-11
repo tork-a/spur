@@ -1,0 +1,4 @@
+- git: { local-name: tork-a/spur, uri: 'http://github.com/tork-a/spur.git', version: master }
+- git: { local-name: ccny-ros-pkg/scan_tools, uri: 'https://github.com/ccny-ros-pkg/scan_tools.git', version: master }
+- git: { local-name: ros-teleop/teleop_twist_joy, uri: 'https://github.com/130s/teleop_twist_joy.git', version: add/omnidir }
+
