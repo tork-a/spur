@@ -26,7 +26,7 @@
   <param name="robot_description" command="$(find xacro)/xacro.py $(arg model) visualize_laser:=$(arg visualize_laser)" />
 
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-        args="-x 17.0 -y 4.0 -z 0.01 -unpause -urdf -model spur -param robot_description" />
+        args="-x 17.0 -y 6.0 -z 0.01 -unpause -urdf -model spur -param robot_description" />
 
   <include file="$(find spur_gazebo)/launch/spur_gazebo_control.launch" />
   <include file="$(find spur_controller)/launch/base_controller.launch">

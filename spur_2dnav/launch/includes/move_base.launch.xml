@@ -8,8 +8,9 @@
   <arg name="odom_frame_id"   default="odom"/>
   <arg name="base_frame_id"   default="base_footprint"/>
   <arg name="global_frame_id" default="map"/>
-  <arg name="odom_topic" default="odom" />
-  <arg name="laser_topic" default="scan" />
+  <arg name="odom_topic" default="/robot_pose_ekf/odom_combined" />
+  <arg name="laser_topic" default="/spur/laser/scan" />
+  <arg name="twist_topic" default="/spur/cmd_vel" />
   <arg name="custom_param_file" default="$(find turtlebot_navigation)/param/dummy.yaml"/>
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
@@ -31,7 +32,7 @@
     <param name="local_costmap/robot_base_frame" value="$(arg base_frame_id)"/>
     <param name="DWAPlannerROS/global_frame_id" value="$(arg odom_frame_id)"/>
 
-    <remap from="cmd_vel" to="/spur/cmd_vel"/>
+    <remap from="cmd_vel" to="$(arg twist_topic)"/>
     <remap from="odom" to="$(arg odom_topic)"/>
     <remap from="scan" to="$(arg laser_topic)"/>
   </node>
