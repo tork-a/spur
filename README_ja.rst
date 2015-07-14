@@ -138,7 +138,7 @@ Usage
  * シミュレーション・モードは Willow Garage 社の地図をデフォルトで用います
  * 実機では `map_file` 引数指定が**必須**です
 
-台車，RViz と共に下に示すコマンドで `move_base <http://wiki.ros.org/move_base?distro=indigo>`_ を起動する::
+次の1行のコマンドで `move_base <http://wiki.ros.org/move_base?distro=indigo>`_ 等自律移動に必要なノードを (台車，RViz 等地図作成時に使用したノード群と共に) 起動します::
 
 .. code-block::
 
@@ -148,7 +148,21 @@ Usage
  (Ex.) 
  term-1-real$ roslaunch spur_2dnav amcl.launch map_file:=`rospack find spur_2dnav`/launch/mysweethome.yaml
 
-起動したら，既存チュートリアルを参考にして移動の指示を送る (e.g. `Using rviz with the Navigation Stack <http://wiki.ros.org/navigation/Tutorials/Using%20rviz%20with%20the%20Navigation%20Stack>`_)．
+(Gazebo と) RViz が表示されたら，RViz 上で次の操作で自律移動を開始します：
+
+1. `2D Pose Estimate` ボタン (通常 RViz の最上部に表示されている) で正しいロボットの現在位置を指定する．
+2. ロボットの位置が合ったら `2D Nav Goal` ボタンを押し，ゴール位置姿勢を指定する．
+
+ .. image:: https://cloud.githubusercontent.com/assets/1840401/8664520/1ad23702-298d-11e5-9a18-54d7a33fee31.png
+   :width: 500 px
+   :alt: 2D Pose matched b/w rviz and gazebo
+   :align: left
+
+ Image. 2D pose of the robot is matched using `2D Pose Estimate` feature on `RViz`.
+
+その他操作の詳細は既存チュートリアルを参照 (e.g. `Using rviz with the Navigation Stack <http://wiki.ros.org/navigation/Tutorials/Using%20rviz%20with%20the%20Navigation%20Stack>`_).
+
+ゴール位置姿勢をプログラムで与えたい場合，`geometry_msgs/PoseWithCovarianceStamped <http://docs.ros.org/api/geometry_msgs/html/msg/PoseWithCovarianceStamped.html>`_ トピックを発行する (詳細：`this QA <http://answers.ros.org/question/9686/how-to-programatically-set-the-2d-pose-on-a-map/>`_).
 
 コミュニティ
 ============
