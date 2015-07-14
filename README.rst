@@ -167,10 +167,10 @@ Autonomous move and collision avoidance using map
 
 With only a single command you can invoke AMCL mode, assuming that this will be the most frequently used operation. Just notice:
 
- * Simulation mode uses Willow Garage map by default
- * Real robot mode **requires** map file as an argument
+* Simulation mode uses Willow Garage map by default
+* Real robot mode **requires** map file as an argument
 
-Run `move_base <http://wiki.ros.org/move_base?distro=indigo>`_ along with other services (same as when you created a map).
+The following single launch command will run `move_base <http://wiki.ros.org/move_base?distro=indigo>`_ along with other services (same as when you created a map).
 
 .. code-block::
 
@@ -180,7 +180,21 @@ Run `move_base <http://wiki.ros.org/move_base?distro=indigo>`_ along with other 
  (Ex.) 
  term-1-real$ roslaunch spur_2dnav amcl.launch map_file:=`rospack find spur_2dnav`/launch/mysweethome.yaml
 
+Then you can start navigating the robot by setting the goal on RViz. Simply do,
+
+1. Set robot's current pose on the map using `2D Pose Estimate` button (it's at the top of RViz pane).
+2. Then set the goal pose on RViz pane using `2D Nav Goal`.
+
+ .. image:: https://cloud.githubusercontent.com/assets/1840401/8664520/1ad23702-298d-11e5-9a18-54d7a33fee31.png
+   :width: 500 px
+   :alt: 2D Pose matched b/w rviz and gazebo
+   :align: left
+
+ Image. 2D pose of the robot is matched using `2D Pose Estimate` feature on `RViz`.
+
 Then follow existing tutorials (e.g. `Using rviz with the Navigation Stack <http://wiki.ros.org/navigation/Tutorials/Using%20rviz%20with%20the%20Navigation%20Stack>`_).
+
+If you wish to give the initial pose programmatically, publish `geometry_msgs/PoseWithCovarianceStamped <http://docs.ros.org/api/geometry_msgs/html/msg/PoseWithCovarianceStamped.html>`_ (see `this QA <http://answers.ros.org/question/9686/how-to-programatically-set-the-2d-pose-on-a-map/>`_ for more info).
 
 Configuration
 ------------------------------
