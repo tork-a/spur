@@ -133,7 +133,22 @@ Usage
 地図を用いて自律移動・障害回避
 ########################################################
 
-(TBD)
+このロボット運用の際に最もよく使うコマンドかも知れないので，1行のコマンドで実行できるようにしてあります．注意点：
+
+ * シミュレーション・モードは Willow Garage 社の地図をデフォルトで用います
+ * 実機では `map_file` 引数指定が**必須**です
+
+台車，RViz と共に下に示すコマンドで `move_base <http://wiki.ros.org/move_base?distro=indigo>`_ を起動する::
+
+.. code-block::
+
+ term-1-sim$ roslaunch spur_2dnav amcl.launch sim:=true
+ term-1-real$ roslaunch spur_2dnav amcl.launch map_file:=%PATH_MAPFILE%
+
+ (Ex.) 
+ term-1-real$ roslaunch spur_2dnav amcl.launch map_file:=`rospack find spur_2dnav`/launch/mysweethome.yaml
+
+起動したら，既存チュートリアルを参考にして移動の指示を送る (e.g. `Using rviz with the Navigation Stack <http://wiki.ros.org/navigation/Tutorials/Using%20rviz%20with%20the%20Navigation%20Stack>`_)．
 
 コミュニティ
 ============
