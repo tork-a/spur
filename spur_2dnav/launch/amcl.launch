@@ -3,15 +3,25 @@
 -->
 <launch>
   <arg name="custom_param_file" default="$(find spur_2dnav)/config/dummy.yaml"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
   <arg name="sim" default="false" />
   <arg name="map_file" default="$(find turtlebot_navigation)/maps/willow-2010-02-18-0.10.yaml"/>
   <arg name="run_rviz" default="true" />
+  <arg name="world_file" default="worlds/willowgarage.world" />
 
   <group if="$(arg sim)">
     <!-- Run Gazebo -->
     <include file="$(find spur_gazebo)/launch/spur_world.launch">
+      <arg name="gui" value="$(arg gui)" />
+      <arg name="headless" value="$(arg headless)"/>
       <arg name="visualize_laser" value="true" />
+      <arg name="world_file" value="$(arg world_file)"/>
     </include>
+
+    <!-- If using willow map then locate the robot at the specific init pose. -->
+    <node pkg="rostopic" type="rostopic" name="robot_initialpose_publisher"
+          args="pub -1 initialpose geometry_msgs/PoseWithCovarianceStamped '{ header:{ seq: 0, stamp: { secs: 91, nsecs: 316000000 }, frame_id: map }, pose: { pose: { position: { x: 27.5855789185, y: 22.4980049133, z: 0.0 }, orientation: { x: 0.0, y: 0.0, z: -0.832933327565, w: 0.553373356633 }}, covariance: [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853891945200942]}}'" />
   </group>
 
   <!-- Run RViz -->
