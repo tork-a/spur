@@ -395,76 +395,74 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        odom:
-          base_footprint:
-            base_link:
-              bl_rotation_link:
-                bl_wheel_link:
-                  bl_wheel_tire_l_link:
-                    {}
-                  bl_wheel_tire_r_link:
-                    {}
-              body:
-                {}
-              br_rotation_link:
-                br_wheel_link:
-                  br_wheel_tire_l_link:
-                    {}
-                  br_wheel_tire_r_link:
-                    {}
-              fl_rotation_link:
-                fl_wheel_link:
-                  fl_wheel_tire_l_link:
-                    {}
-                  fl_wheel_tire_r_link:
-                    {}
-              fr_rotation_link:
-                fr_wheel_link:
-                  fr_wheel_tire_l_link:
-                    {}
-                  fr_wheel_tire_r_link:
-                    {}
-              hokuyo_sensor_link:
-                {}
-              larm_base_link:
-                larm_shoulder_p_link:
-                  larm_shoulder_r_link:
-                    larm_shoulder_y_link:
-                      larm_elbow_p_link:
-                        larm_elbow_p_body:
-                          larm_elbow_p_body_1:
-                            {}
-                          larm_elbow_p_body_2:
-                            {}
-                        larm_wrist_p_link:
-                          larm_wrist_r_link:
-                            {}
-                      larm_shoulder_y_body:
-                        larm_shoulder_y_body_1:
-                          {}
-                        larm_shoulder_y_body_2:
-                          {}
-              rarm_base_link:
-                rarm_shoulder_p_link:
-                  rarm_shoulder_r_link:
-                    rarm_shoulder_y_link:
-                      rarm_elbow_p_link:
-                        rarm_elbow_p_body:
-                          rarm_elbow_p_body_1:
-                            {}
-                          rarm_elbow_p_body_2:
-                            {}
-                        rarm_wrist_p_link:
-                          rarm_wrist_r_link:
-                            {}
-                      rarm_shoulder_y_body:
-                        rarm_shoulder_y_body_1:
-                          {}
-                        rarm_shoulder_y_body_2:
-                          {}
         map:
           odom:
-            {}
+            base_footprint:
+              base_link:
+                bl_rotation_link:
+                  bl_wheel_link:
+                    bl_wheel_tire_l_link:
+                      {}
+                    bl_wheel_tire_r_link:
+                      {}
+                body:
+                  {}
+                br_rotation_link:
+                  br_wheel_link:
+                    br_wheel_tire_l_link:
+                      {}
+                    br_wheel_tire_r_link:
+                      {}
+                fl_rotation_link:
+                  fl_wheel_link:
+                    fl_wheel_tire_l_link:
+                      {}
+                    fl_wheel_tire_r_link:
+                      {}
+                fr_rotation_link:
+                  fr_wheel_link:
+                    fr_wheel_tire_l_link:
+                      {}
+                    fr_wheel_tire_r_link:
+                      {}
+                hokuyo_sensor_link:
+                  {}
+                larm_base_link:
+                  larm_shoulder_p_link:
+                    larm_shoulder_r_link:
+                      larm_shoulder_y_link:
+                        larm_elbow_p_link:
+                          larm_elbow_p_body:
+                            larm_elbow_p_body_1:
+                              {}
+                            larm_elbow_p_body_2:
+                              {}
+                          larm_wrist_p_link:
+                            larm_wrist_r_link:
+                              {}
+                        larm_shoulder_y_body:
+                          larm_shoulder_y_body_1:
+                            {}
+                          larm_shoulder_y_body_2:
+                            {}
+                rarm_base_link:
+                  rarm_shoulder_p_link:
+                    rarm_shoulder_r_link:
+                      rarm_shoulder_y_link:
+                        rarm_elbow_p_link:
+                          rarm_elbow_p_body:
+                            rarm_elbow_p_body_1:
+                              {}
+                            rarm_elbow_p_body_2:
+                              {}
+                          rarm_wrist_p_link:
+                            rarm_wrist_r_link:
+                              {}
+                        rarm_shoulder_y_body:
+                          rarm_shoulder_y_body_1:
+                            {}
+                          rarm_shoulder_y_body_2:
+                            {}
       Update Interval: 0
       Value: true
     - Angle Tolerance: 0.1
@@ -538,22 +536,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 6.93232
+      Distance: 39.5249
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 23.4349
+        Y: 15.0015
+        Z: -21.9805
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.465398
+      Pitch: 1.2604
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.885398
+      Yaw: 1.1154
     Saved: ~
 Window Geometry:
   Displays:
