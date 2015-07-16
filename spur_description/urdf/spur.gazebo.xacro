@@ -59,7 +59,7 @@
             <resolution>0.01</resolution>
           </range>
           <noise>
-            <type>Gaussian</type>
+            <type>gaussian</type>
             <mean>0.0</mean>
             <stddev>0.01</stddev>
           </noise>
