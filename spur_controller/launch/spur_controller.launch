@@ -1,30 +1,23 @@
 <launch>
   <arg name="sec_idle" default="1.0" />
   <arg name="use_base_odom" default="true" />
-
-  <!-- Debug Info -->
-  <arg name="sim" default="false" />
-  <arg unless="$(arg sim)" name="spur_controller_args" default="" />
-  <arg     if="$(arg sim)" name="spur_controller_args" default="--dummy MX-106" />
+  <arg name="use_dynamixel_controller" default="true" />
+  <arg name="use_dummy" default="false" />
 
   <!-- Debug Info -->
   <arg name="debug" default="false" />
   <arg unless="$(arg debug)" name="launch_prefix" value="" />
   <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
 
-  <!-- load robot_description -->
-  <arg name="model" value="$(find spur_description)/urdf/spur.urdf.xacro"  />
-  <arg name="visualize_laser" value="false" />
-  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model) visualize_laser:=$(arg visualize_laser)" />
-
   <!-- Fire up dynamixel -->
-  <include file="$(find spur_controller)/launch/spur_dynamixel.launch">
-    <arg name="sim" value="$(arg sim)" />
-    <arg name="spur_controller_args" value="$(arg spur_controller_args)" />
-    <!-- Debug Info -->
-    <arg name="debug" value="$(arg debug)" />
-    <arg name="launch_prefix" value="$(arg launch_prefix)" />
-  </include>
+  <group if="$(arg use_dynamixel_controller)" >
+    <include file="$(find spur_controller)/launch/spur_dynamixel.launch">
+      <arg name="use_dummy" value="$(arg use_dummy)" />
+      <!-- Debug Info -->
+      <arg name="debug" value="$(arg debug)" />
+      <arg name="launch_prefix" value="$(arg launch_prefix)" />
+    </include>
+  </group>
 
   <!-- Start the Base Controller -->
   <include file="$(find spur_controller)/launch/base_controller.launch">

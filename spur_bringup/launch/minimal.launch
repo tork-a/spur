@@ -1,28 +1,32 @@
 <launch>
   <arg name="sec_idle" default="1.0" />
   <arg name="use_base_odom" default="true" />
-
-  <!-- Debug Info -->
-  <arg name="sim" default="false" />
-  <arg unless="$(arg sim)" name="spur_controller_args" default="" />
-  <arg     if="$(arg sim)" name="spur_controller_args" default="--dummy MX-106" />
+  <arg name="use_dummy" default="false" />  <!-- running dummy dynamixel motor controller manager, it does not requries gazebo -->
+  <arg name="use_urg_node" default="true" />
+  <arg name="use_dynamixel_controller" default="true" />
+  <arg name="visualize_laser" default="false" />
 
   <!-- Debug Info -->
   <arg name="debug" default="false" />
 
+  <!-- load robot_description -->
+  <arg name="model" value="$(find spur_description)/urdf/spur.urdf.xacro"  />
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model) visualize_laser:=$(arg visualize_laser)" />
+
   <!-- Base controller, hardware -->
   <include file="$(find spur_controller)/launch/spur_controller.launch">
     <arg name="sec_idle" value="$(arg sec_idle)" />
-    <arg name="sim" value="$(arg sim)" />
     <arg name="use_base_odom" value="$(arg use_base_odom)" />
-    <arg name="spur_controller_args" default="$(arg spur_controller_args)" />
     <arg name="debug" value="false" />
+    <arg name="use_dummy" value="$(arg use_dummy)" />
+    <arg name="use_dynamixel_controller" value="$(arg use_dynamixel_controller)" />
   </include>
 
-  <group unless="$(arg sim)" >
+  <group if="$(arg use_urg_node)" >
     <node name="urg" pkg="urg_node" type="urg_node">
       <remap from="/scan" to="/spur/laser/scan" />
       <param name="frame_id" value="hokuyo_sensor_link" />
     </node>
   </group>
+  <include file="$(find spur_bringup)/launch/laser_filter.launch" />
 </launch>
