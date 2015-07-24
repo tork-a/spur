@@ -388,6 +388,33 @@ Visualization Manager:
         Z: 0
       Topic: /move_base/TrajectoryPlannerROS/local_plan
       Value: true
+    - Arrow Length: 0.3
+      Class: rviz/PoseArray
+      Color: 255; 25; 0
+      Enabled: true
+      Name: PoseArray
+      Topic: /particlecloud
+      Value: true
+    - Angle Tolerance: 0.1
+      Class: rviz/Odometry
+      Color: 255; 25; 0
+      Enabled: false
+      Keep: 100
+      Length: 1
+      Name: Odometry
+      Position Tolerance: 0.1
+      Topic: /base_pose_ground_truth
+      Value: false
+    - Angle Tolerance: 0.1
+      Class: rviz/Odometry
+      Color: 255; 170; 0
+      Enabled: false
+      Keep: 100
+      Length: 1
+      Name: Odometry
+      Position Tolerance: 0.1
+      Topic: /odom
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -424,10 +451,10 @@ Visualization Manager:
         Z: -1.47071
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.715398
+      Pitch: 0.970398
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.1604
+      Yaw: 2.8454
     Saved: ~
 Window Geometry:
   Displays:
@@ -445,5 +472,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1280
-  X: 600
+  X: 590
   Y: 14
