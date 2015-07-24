@@ -21,7 +21,7 @@ NavfnROS:
   visualize_potential: false
 
 # Local planner
-controller_frequency: 3.0
+controller_frequency: 10.0
 controller_patience: 15.0
 TrajectoryPlannerROS:
   # base vel/accel profile is in robot folders
@@ -50,20 +50,20 @@ TrajectoryPlannerROS:
   publish_cost_grid_pc: false
 # Base profile
 TrajectoryPlannerROS:
-  acc_lim_x: 0.35
-  acc_lim_y: 0.0
-  acc_lim_theta: 0.8
-  max_vel_x: 2.0
-  min_vel_x: 0.15
-  max_vel_y: 0.0
-  min_vel_y: 0.0
-  max_vel_theta: 1.5
-  min_vel_theta: -1.5
-  min_in_place_vel_theta: 0.3
-  holonomic_robot: false
+  acc_lim_x: 0.1
+  acc_lim_y: 0.1
+  acc_lim_theta: 0.3
+  max_vel_x: 0.5
+  min_vel_x: 0.1
+  max_vel_y: 0.5
+  min_vel_y: 0.1
+  max_vel_theta: 0.5
+  min_vel_theta: -0.5
+  min_in_place_vel_theta: 0.5
+  holonomic_robot: true
 
 # Recovery behaviors
-recovery_behavior_enabled: true
+recovery_behavior_enabled: false
 recovery_behaviors:
   - name: "conservative_reset"
     type: "clear_costmap_recovery/ClearCostmapRecovery"
