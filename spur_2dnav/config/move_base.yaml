@@ -21,7 +21,7 @@ NavfnROS:
   visualize_potential: false
 
 # Local planner
-controller_frequency: 25.0
+controller_frequency: 3.0
 controller_patience: 15.0
 TrajectoryPlannerROS:
   # base vel/accel profile is in robot folders
