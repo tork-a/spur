@@ -218,6 +218,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+          Value: true
         rarm_base_link:
           Alpha: 1
           Show Axes: false
@@ -280,6 +281,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -415,6 +417,13 @@ Visualization Manager:
       Position Tolerance: 0.1
       Topic: /odom
       Value: false
+    - Alpha: 1
+      Class: rviz/Polygon
+      Color: 25; 255; 0
+      Enabled: true
+      Name: Footprint
+      Topic: /move_base/global_costmap/obstacle_layer_footprint/footprint_stamped
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -472,5 +481,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1280
-  X: 590
+  X: 580
   Y: 14
