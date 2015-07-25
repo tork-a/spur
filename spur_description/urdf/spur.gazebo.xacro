@@ -20,13 +20,34 @@
     </plugin>
   </gazebo>
 
-  <xacro:macro name="gazebo_link" params="name color">
+  <xacro:macro name="gazebo_tire_link" params="name color">
     <gazebo reference="${name}">
       <material>Gazebo/${color}</material>
-      <mu1 value="1.0" />
-      <mu2 value="1.0" />
-      <kp value="10000000.0" />
-      <kd value="1.0" />
+      <kp>500000.0</kp>
+      <kd>10.0</kd>
+      <mu1>10.0</mu1>
+      <mu2>10.0</mu2>
+      <fdir1>1 0 0</fdir1>
+      <minDepth>0.003</minDepth>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="gazebo_base_link" params="name color">
+    <gazebo reference="${name}">
+      <material>Gazebo/${color}</material>
+      <kp>1000000.0</kp>
+      <kd>10.0</kd>
+      <mu1>0.1</mu1>
+      <mu2>0.1</mu2>
+      <fdir1>1 0 0</fdir1>
+      <maxVel>10.0</maxVel>
+      <minDepth>0.0005</minDepth>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="gazebo_arm_link" params="name color">
+    <gazebo reference="${name}">
+      <material>Gazebo/${color}</material>
     </gazebo>
   </xacro:macro>
 
