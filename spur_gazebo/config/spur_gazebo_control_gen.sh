@@ -52,7 +52,7 @@ for joint in bl_wheel_joint br_wheel_joint fl_wheel_joint fr_wheel_joint; do
   ${joint}_velocity_controller:
     type: effort_controllers/JointVelocityController
     joint: ${joint}
-    pid: {p: 2000.0, i: 1.0, d: 0.1}
+    pid: {p: 10000.0, i: 100.0, d: 10}
 EOF
 done
 
@@ -60,17 +60,29 @@ cat <<EOF
 
   # Position Controllers ---------------------------------------
 EOF
-for joint in bl_rotation_joint br_rotation_joint fl_rotation_joint fr_rotation_joint larm_elbow_p_joint larm_shoulder_p_joint larm_shoulder_r_joint larm_shoulder_y_joint larm_wrist_p_joint larm_wrist_r_joint rarm_elbow_p_joint rarm_shoulder_p_joint rarm_shoulder_r_joint rarm_shoulder_y_joint rarm_wrist_p_joint rarm_wrist_r_joint; do
+for joint in bl_rotation_joint br_rotation_joint fl_rotation_joint fr_rotation_joint; do
     cat <<EOF
   ${joint}_position_controller:
     type: effort_controllers/JointPositionController
     joint: ${joint}
-    pid: {p: 1000.0, i: 1, d: 10.0}
+    pid: {p: 1000.0, i: 1.0, d: 10.0}
+EOF
+done
+cat <<EOF
+
+  # Position Controllers (arms) ---------------------------------------
+EOF
+for joint in larm_elbow_p_joint larm_shoulder_p_joint larm_shoulder_r_joint larm_shoulder_y_joint larm_wrist_p_joint larm_wrist_r_joint rarm_elbow_p_joint rarm_shoulder_p_joint rarm_shoulder_r_joint rarm_shoulder_y_joint rarm_wrist_p_joint rarm_wrist_r_joint; do
+    cat <<EOF
+  ${joint}_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: ${joint}
+    pid: {p: 100, i: 0.01, d: 10.0}
 EOF
 done
 
 for arm in larm rarm; do
-    joint_list="${arm}_elbow_p_joint ${arm}_shoulder_p_joint ${arm}_shoulder_r_joint ${arm}_shoulder_y_joint ${arm}_wrist_p_joint ${arm}_wrist_r_joint"
+    joint_list="${arm}_shoulder_p_joint ${arm}_shoulder_r_joint ${arm}_shoulder_y_joint ${arm}_elbow_p_joint ${arm}_wrist_p_joint ${arm}_wrist_r_joint";
     cat <<EOF
 
   # Trajectory Controllers ---------------------------------------
@@ -101,7 +113,7 @@ EOF
 EOF
     for joint in ${joint_list}; do
     cat <<EOF
-      ${joint}: {p: 1000,  d: 10, i: 1, i_clamp: 1}
+      ${joint}: {p: 100, i: 1, d: 1, i_clamp: 1}
 EOF
     done
     cat <<EOF
