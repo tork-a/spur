@@ -31,11 +31,4 @@
                                          rarm_wrist_p_joint_position_controller
                                          rarm_wrist_r_joint_position_controller
 -->
-  <!-- convert joint states to TF transforms for rviz, etc -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher"
-        type="robot_state_publisher"
-        respawn="false" output="screen">
-    <remap from="/joint_states" to="/spur/joint_states" />
-  </node>
-
 </launch>
