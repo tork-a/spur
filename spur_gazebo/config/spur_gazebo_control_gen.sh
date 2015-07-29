@@ -52,7 +52,7 @@ for joint in bl_wheel_joint br_wheel_joint fl_wheel_joint fr_wheel_joint; do
   ${joint}_velocity_controller:
     type: effort_controllers/JointVelocityController
     joint: ${joint}
-    pid: {p: 10000.0, i: 100.0, d: 10}
+    pid: {p: 1.5, i: 1.0, d: 0.0, i_clamp: 10.0}
 EOF
 done
 
@@ -65,7 +65,7 @@ for joint in bl_rotation_joint br_rotation_joint fl_rotation_joint fr_rotation_j
   ${joint}_position_controller:
     type: effort_controllers/JointPositionController
     joint: ${joint}
-    pid: {p: 1000.0, i: 1.0, d: 10.0}
+    pid: {p: 5000.0, i: 500, d: 5.0}
 EOF
 done
 cat <<EOF
@@ -77,7 +77,7 @@ for joint in larm_elbow_p_joint larm_shoulder_p_joint larm_shoulder_r_joint larm
   ${joint}_position_controller:
     type: effort_controllers/JointPositionController
     joint: ${joint}
-    pid: {p: 100, i: 0.01, d: 10.0}
+    pid: {p: 100, i: 0.01, d: 5.0}
 EOF
 done
 
@@ -113,12 +113,12 @@ EOF
 EOF
     for joint in ${joint_list}; do
     cat <<EOF
-      ${joint}: {p: 100, i: 1, d: 1, i_clamp: 1}
+      ${joint}: {p: 500, i: 5, d: 1}
 EOF
     done
     cat <<EOF
-    state_publish_rate:  25            # Override default
-    action_monitor_rate: 30            # Override default
+    state_publish_rate:  100            # Override default
+    action_monitor_rate: 100            # Override default
     stop_trajectory_duration: 0        # Override default
 
 EOF
