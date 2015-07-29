@@ -5,13 +5,14 @@
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
   <arg name="sec_idle" default="1.0" />
-  <arg name="use_base_odom" default="true" />
+  <arg name="use_base_odom" default="false" />
 
   <arg name="visualize_laser" default="false" />
-  <arg name="world_file" default="$(find turtlebot_gazebo)/worlds/playground.world" />
-<!--  <arg name="world_file" default="$(find turtlebot_gazebo)/worlds/corridor.world" /> -->
-<!--  <arg name="world_file" default="worlds/willowgarage.world" /> -->
-<!--  <arg name="world_file" default="worlds/empty.world" /> -->
+  <!-- <arg name="world_file" default="$(find turtlebot_gazebo)/worlds/playground.world" /> -->
+  <!-- <arg name="world_file" default="$(find turtlebot_gazebo)/worlds/corridor.world" /> -->
+  <!-- <arg name="world_file" default="worlds/willowgarage.world" /> -->
+  <!-- <arg name="world_file" default="worlds/empty.world" /> -->
+   <arg name="world_file" default="$(find spur_gazebo)/worlds/playground.world" />
 
   <arg name="model" value="$(find spur_description)/urdf/spur.urdf.xacro"  />
 
