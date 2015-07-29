@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>spur_2dnav</name>
-  <version>0.2.4</version>
+  <version>0.2.5</version>
   <description>The spur_2dnav package holds common configuration options for running SPUR in 2D environment.</description>
 
   <maintainer email="okdhryk@gmail.com">Hiroyuki Okada</maintainer>

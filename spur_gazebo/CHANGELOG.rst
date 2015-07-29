@@ -2,8 +2,8 @@
 Changelog for package spur_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.5 (2015-07-29)
+------------------
 * [feat] Enabling localization, navigation
 * [sys] Cleanup
 * Contributors: TORK 534o, Isaac IY Saito

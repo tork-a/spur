@@ -2,8 +2,8 @@
 Changelog for package spur_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.5 (2015-07-29)
+------------------
 * [fix] Odometry accuracy
 * [sys] Cleanup
 * [sys] add spur_controller/test/cmd_vel_test.py

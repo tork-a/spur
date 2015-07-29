@@ -2,8 +2,8 @@
 Changelog for package spur
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.5 (2015-07-29)
+------------------
 * [feat] Enabling localization, navigation
 * [feat] Navigation parameters update
 * [feat] Update laser sensor from 04LX specification for simulation. 

@@ -2,8 +2,8 @@
 Changelog for package spur_2dnav
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.5 (2015-07-29)
+------------------
 * [feat] Enabling localization, navigation
 * [feat] gmapping, move_base params, slowdown the veloc limitation
 * [feat] 2dnav.rviz: add footprtint

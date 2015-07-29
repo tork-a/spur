@@ -2,8 +2,8 @@
 Changelog for package spur_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.5 (2015-07-29)
+------------------
 * [feat] add laserfilter.launch
 * [sys] cleanup launc files, sim->use_dummy, spur_world uses miimax.launch
 * Contributors: TORK 534o
