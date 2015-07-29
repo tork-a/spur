@@ -27,6 +27,18 @@
   <property name="hokuyo_length" value="0.07" />
   <property name="hokuyo_radius" value="0.043" /> <!-- Because max surface area of Hokuyo laser is not cylindrical, this isn't accurate, which shouldn't matter. -->
 
+  <property name="mx160_effort" value="8.3" /> <!--  8.3 N/m ?? 45rpm -> 4.71 rad/s-->
+  <property name="mx160_velocity" value="4.71" />
+  <!-- inertia -->
+  <macro name="cylinder_inertia" params="m r h">
+    <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
+              iyy="${m*(3*r*r+h*h)/12}" iyz = "0" izz="${m*r*r/2}" />
+  </macro>
+
+  <macro name="box_inertia" params="m x y z">
+    <inertia  ixx="${m*(y*y+z*z)/12}" ixy = "0" ixz = "0"
+              iyy="${m*(z*z+x*x)/12}" iyz = "0" izz="${m*(x*x+y*y)/12}" />
+  </macro>
   <!-- wheel -->
   <xacro:macro name="odom_wheel_tire" params="parent suffix offset">
 
@@ -40,10 +52,7 @@
       <inertial>
         <mass value="1.0" />
         <origin xyz="0 0 0" />
-        <!-- <inertia  ixx="${((wheel_radius * wheel_radius / 4.0 ) + (wheel_width * wheel_width / 12.0 )) * 1.0}" ixy="0.0" ixz="0.0" -->
-        <!--           iyy="${((wheel_radius * wheel_radius / 4.0 ) + (wheel_width * wheel_width / 12.0 )) * 1.0}" iyz="0.0" -->
-        <!--           izz="${wheel_radius * wheel_radius / 2.0 * 1.0}" /> -->
-        <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+        <cylinder_inertia m="1.0" r="${wheel_radius}" h="${wheel_width}" />
       </inertial>
       <visual>
         <geometry>
@@ -66,23 +75,20 @@
 
     <joint name="${suffix}_wheel_joint" type="continuous">
       <axis xyz="0 0 ${rot_axis}" />
-      <limit effort="8.3" velocity="50"/> <!--  8.3 N/m ?? 45rpm -> 4.71 rad/s-->
+      <limit effort="${mx160_effort*500}" velocity="${mx160_velocity*100}"/>
       <dynamics damping="0.0" friction="0.0" />
       <origin xyz="0 0 -${caster_offset_z}" rpy="-${M_PI/2} 0 0" />
       <parent link="${suffix}_rotation_link" />
       <child link="${suffix}_wheel_link" />
     </joint>
 
-    <xacro:simple_transmission name="${suffix}_wheel_joint" />
+    <xacro:simple_transmission name="${suffix}_wheel_joint" interface="EffortJointInterface" />
 
     <link name="${suffix}_wheel_link">
       <inertial>
         <mass value="5.0" />
         <origin xyz="0 0 0" />
-        <!-- <inertia ixx="${((0.02 * 0.02 / 4.0 ) + (0.100 * 0.100 / 12.0)) * 5.0}" ixy="0.0" ixz="0.0" -->
-        <!--          iyy="${((0.02 * 0.02 / 4.0 ) + (0.100 * 0.100 / 12.0)) * 5.0}" iyz="0.0" -->
-        <!--          izz="${0.02 * 0.02 / 2.0 * 5.0}" /> -->
-        <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+        <cylinder_inertia m="5.0" r="0.02" h="0.100" />
       </inertial>
       <visual>
         <geometry>
@@ -104,23 +110,20 @@
   <xacro:macro name="odom_wheel_rotate" params="suffix">
     <joint name="${suffix}_rotation_joint" type="revolute">
       <axis xyz="0 0 -1" />
-      <limit lower="${-90*M_PI/180.0}" upper="${90*M_PI/180.0}" effort="50" velocity="4.71"/>
+      <limit lower="${-90*M_PI/180.0}" upper="${90*M_PI/180.0}" effort="${mx160_effort}" velocity="${mx160_velocity}"/>
       <dynamics damping="0.0" friction="0.0" />
       <xacro:insert_block name="origin" />
       <parent link="base_link"/>
       <child link="${suffix}_rotation_link" />
     </joint>
 
-    <xacro:simple_transmission name="${suffix}_rotation_joint" />
+    <xacro:simple_transmission name="${suffix}_rotation_joint" interface="EffortJointInterface" />
 
     <link name="${suffix}_rotation_link">
       <inertial>
         <mass value="1.0" />
         <origin xyz="0 0 -${caster_offset_z/2}" rpy="0 0 0" />
-        <!-- <inertia  ixx="${((0.015 * 0.015 / 4.0 ) + (caster_offset_z * caster_offset_z / 12.0 )) * 1.0}" ixy="0.0" ixz="0.0" -->
-        <!--           iyy="${((0.015 * 0.015 / 4.0 ) + (caster_offset_z * caster_offset_z / 12.0 )) * 1.0}" iyz="0.0" -->
-        <!--           izz="${0.015 * 0.015 / 2.0 * 1.0}" /> -->
-        <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+        <cylinder_inertia m="1.0" r="0.015" h="${caster_offset_z}" />
       </inertial>
       <visual>
         <origin xyz="0 0 -${caster_offset_z/2}" rpy="0 0 0" />
@@ -152,16 +155,12 @@
 
   <!-- arm -->
   <xacro:macro name="mx_106_link" params="name *origin">
+
     <link name="${name}">
       <inertial>
-        <!-- <mass value="0.153" /> -->
         <xacro:insert_block name="origin" />
-        <!-- <inertia  ixx="${(0.0595/2*0.0595/2+0.0460/2*0.0460/2)/3*0.153}" ixy="0.0" ixz="0.0" -->
-        <!--           iyy="${(0.0460/2*0.0460/2+0.0290/2*0.0290/2)/3*0.153}" iyz="0.0" -->
-        <!--           izz="${(0.0290/2*0.0290/2+0.0595/2*0.0595/2)/3*0.153}" -->
-        <!--           /> -->
-        <mass value="1e-1" />
-        <inertia ixx="1e-2" ixy="0" ixz="0" iyy="1e-2" iyz="0" izz="1e-2" />
+        <mass value="0.153" />
+        <box_inertia m="0.153" x="0.029" y="0.0595" z="0.046" />
       </inertial>
       <visual>
         <xacro:insert_block name="origin" />
@@ -173,7 +172,7 @@
       <collision>
         <xacro:insert_block name="origin" />
         <geometry>
-          <box size="${0.029-0.001} ${0.0595-0.001} ${0.046-0.001}" />
+          <box size="${0.029-0.01} ${0.0595-0.01} ${0.046-0.01}" />
         </geometry>
       </collision>
     </link>
@@ -182,28 +181,24 @@
 
   </xacro:macro>
 
-  <xacro:macro name="arm_link_element" params="name length" >
+  <xacro:macro name="arm_link_element" params="name length offset" >
     <link name="${name}">
       <inertial>
-        <!-- <mass value="0.1" /> -->
-        <origin xyz="-${length/2 - 0.0145} 0 0" />
-        <!-- <inertia  ixx="${(0.029/2*0.029/2+0.005/2*0.005/2)/3*0.1}" ixy="0.0" ixz="0.0" -->
-        <!--           iyy="${(0.005/2*0.005/2+length/2*length/2)/3*0.1}" iyz="0.0" -->
-        <!--           izz="${(length/2*length/2+0.029/2*0.029/2)/3*0.1}" /> -->
-        <mass value="1e-5" />
-        <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+        <origin xyz="-${length/2 - 0.0145} 0 ${offset}" />
+        <mass value="0.1" />
+        <box_inertia m="0.1" x="${length-0.1}" y="0.029" z="0.005" />
       </inertial>
       <visual>
-        <origin xyz="-${length/2 - 0.0145} 0 0" />
+        <origin xyz="-${length/2 - 0.0145} 0 ${offset}" />
         <geometry>
           <box size="${length} 0.029 0.005" />
         </geometry>
         <material name="LightGrey" />
       </visual>
       <collision>
-        <origin xyz="-${length/2 - 0.0145} 0 0"/>
+        <origin xyz="-${length/2 - 0.0145} 0 ${offset}"/>
         <geometry>
-          <box size="${length-0.06} 0.029 0.005" /> <!-- -0.06 to avoid self collision -->
+          <box size="${length-0.1} 0.029 0.005" /> <!-- -0.06 to avoid self collision -->
         </geometry>
       </collision>
 
@@ -213,23 +208,16 @@
   </xacro:macro>
 
   <xacro:macro name="arm_link_body" params="name length *origin" >
-    <xacro:arm_link_element name="${name}_body_1" length="${length}"/>
-    <xacro:arm_link_element name="${name}_body_2" length="${length}"/>
-    <link name="${name}_body" />
-    <joint name="${name}_body_1_fixed" type="fixed">
-      <origin xyz="0 0 0.023" />
-      <parent link="${name}_body" />
-      <child link="${name}_body_1" />
-    </joint>
-    <joint name="${name}_body_2_fixed" type="fixed">
-      <origin xyz="0 0 -0.023" />
-      <parent link="${name}_body" />
-      <child link="${name}_body_2" />
-    </joint>
+    <xacro:arm_link_element name="${name}_body_1" length="${length}" offset="0.023"/>
+    <xacro:arm_link_element name="${name}_body_2" length="${length}" offset="-0.023"/>
     <joint name="${name}_body_fixed" type="fixed">
       <xacro:insert_block name="origin" />
       <parent link="${name}_link" />
-      <child link="${name}_body" />
+      <child link="${name}_body_1" />
+    </joint>
+    <joint name="${name}_body_2_fixed" type="fixed">
+      <parent link="${name}_body_1" />
+      <child link="${name}_body_2" />
     </joint>
   </xacro:macro>
 
@@ -237,20 +225,18 @@
 
     <joint name="${name}_joint" type="revolute">
       <axis xyz="0 0 1" />
-      <limit lower="${-90*M_PI/180.0}" upper="${90*M_PI/180.0}" effort="1" velocity="4.71"/>
-      <dynamics damping="0.0" friction="0.0" />
       <origin xyz="${joint_origin_xyz}" rpy="${joint_origin_rpy}" />
       <parent link="${parent}"/>
       <child link="${name}_link" />
+      <limit lower="${-90*M_PI/180.0}" upper="${90*M_PI/180.0}" effort="${mx160_effort}" velocity="${mx160_velocity}" />
     </joint>
 
-    <xacro:simple_transmission name="${name}_joint" />
+    <xacro:simple_transmission name="${name}_joint" interface="EffortJointInterface" />
 
   </xacro:macro>
 
   <xacro:macro name="arm_link" params="parent name joint_origin_xyz joint_origin_rpy
-                                       link_origin_xyz
-                                       link_origin_rpy">
+                                       link_origin_xyz link_origin_rpy" >
     <xacro:arm_joint parent="${parent}" name="${name}"
                      joint_origin_xyz="${joint_origin_xyz}"
                      joint_origin_rpy="${joint_origin_rpy}" />
@@ -263,45 +249,59 @@
   </xacro:macro>
 
   <xacro:macro name="arm_links" params="prefix reflect" >
+
     <joint name="${prefix}_base_joint" type="fixed">
       <origin xyz="0 ${reflect * -0.15} 0.7" rpy="${M_PI/2} 0 0" />
       <parent link="base_link"/>
       <child link="${prefix}_base_link" />
     </joint>
+
     <xacro:mx_106_link name="${prefix}_base_link" >
       <origin xyz="0 0.01525 0" rpy="0 0 0" />
     </xacro:mx_106_link>
 
-    <xacro:arm_link parent="${prefix}_base_link" name="${prefix}_shoulder_p"
+    <xacro:arm_link parent="${prefix}_base_link"
+                    name="${prefix}_shoulder_p"
                     joint_origin_xyz="0 0 0" joint_origin_rpy="0 0 0"
                     link_origin_xyz="0 0 ${reflect * (0.1 - 0.01525)}"
                     link_origin_rpy="${M_PI/2} 0 ${M_PI/2}" />
-    <xacro:arm_link parent="${prefix}_shoulder_p_link" name="${prefix}_shoulder_r"
-                    joint_origin_xyz="0 0 ${reflect * 0.1}" joint_origin_rpy="0 ${M_PI/2} 0"
+    <xacro:arm_link parent="${prefix}_shoulder_p_link"
+                    name="${prefix}_shoulder_r"
+                    joint_origin_xyz="0 0 ${reflect * 0.1}"
+                    joint_origin_rpy="0 ${M_PI/2} 0"
                     link_origin_xyz="0 -0.05 0"
                     link_origin_rpy="${M_PI/2} 0 0" />
-    <xacro:arm_link parent="${prefix}_shoulder_r_link" name="${prefix}_shoulder_y"
-                    joint_origin_xyz="0 -0.1 0.0" joint_origin_rpy="${M_PI/2} 0 0"
+    <xacro:arm_link parent="${prefix}_shoulder_r_link"
+                    name="${prefix}_shoulder_y"
+                    joint_origin_xyz="0 -0.1 0.0"
+                    joint_origin_rpy="${M_PI/2} 0 0"
                     link_origin_xyz="0 0 ${0.2 - 0.01515}"
                     link_origin_rpy="${M_PI/2} 0 ${M_PI/2}" />
-    <xacro:arm_link parent="${prefix}_shoulder_y_link" name="${prefix}_elbow_p"
+    <xacro:arm_link parent="${prefix}_shoulder_y_link"
+                    name="${prefix}_elbow_p"
                     joint_origin_xyz="0 0 0.2" joint_origin_rpy="0 ${M_PI/2} 0"
                     link_origin_xyz="-${0.2 - 0.01525} 0 0"
                     link_origin_rpy="0 0 ${M_PI/2}" />
-    <xacro:arm_link parent="${prefix}_elbow_p_link" name="${prefix}_wrist_p"
-                    joint_origin_xyz="-0.2 0 0" joint_origin_rpy="0 0 0"
+    <xacro:arm_link parent="${prefix}_elbow_p_link"
+                    name="${prefix}_wrist_p"
+                    joint_origin_xyz="-0.2 0 0" joint_origin_rpy="0 0
+                                                                  0"
                     link_origin_xyz="-0.05 0 0"
                     link_origin_rpy="${M_PI/2} ${M_PI/2} 0" />
-    <xacro:arm_joint parent="${prefix}_wrist_p_link" name="${prefix}_wrist_r"
+    <xacro:arm_joint parent="${prefix}_wrist_p_link"
+                     name="${prefix}_wrist_r"
                      joint_origin_xyz="-0.05 0.03 0"
                      joint_origin_rpy="-${M_PI/2} -${M_PI/2} 0" />
     <link name="${prefix}_wrist_r_link" >
       <inertial>
         <origin xyz="0 0 0" />
         <mass value="0.001" />
-        <inertia  ixx="${(0.001/2*0.001/2+0.001/2*0.001/2)/3*0.001}" ixy="0.0" ixz="0.0"
-                  iyy="${(0.001/2*0.001/2+0.001/2*0.001/2)/3*0.001}" iyz="0.0"
-                  izz="${(0.001/2*0.001/2+0.001/2*0.001/2)/3*0.001}" />
+        <inertia  ixx="${(0.001/2*0.001/2+0.001/2*0.001/2)/3*0.001}"
+                  ixy="0.0" ixz="0.0"
+                  iyy="${(0.001/2*0.001/2+0.001/2*0.001/2)/3*0.001}"
+                  iyz="0.0"
+                  izz="${(0.001/2*0.001/2+0.001/2*0.001/2)/3*0.001}"
+                  />
       </inertial>
       <visual>
         <geometry>
@@ -315,7 +315,7 @@
         </geometry>
       </collision>
     </link>
-    <xacro:gazebo_arm_link name="${prefix}_wrist_r_link"  color="Black" />
+    <xacro:gazebo_arm_link name="${prefix}_wrist_r_link" color="Black" />
 
     <xacro:arm_link_body name="${prefix}_elbow_p" length="0.2" >
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -331,9 +331,7 @@
     <inertial>
       <mass value="10.0" />
       <origin xyz="0 0 0" />
-      <inertia  ixx="${(base_width/2*base_width/2+base_height/2*base_height/2)/3*10.0}" ixy="0.0" ixz="0.0"
-                iyy="${(base_height/2*base_height/2+base_width/2*base_width/2)/3*10.0}"
-                iyz="0.0" izz="${(base_width/2*base_width/2+base_width/2*base_width/2)/3*10.0}" />
+      <box_inertia m="10.0" x="${base_width}" y="${base_width}" z="${base_height}" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -359,7 +357,7 @@
     <child link="base_link" />
   </joint>
 
-  <!-- odom base -->
+  odom base
   <xacro:odom_wheel suffix="fl" rot_axis="1">
     <origin xyz="${caster_offset_x} ${caster_offset_y} 0.0" rpy="0 0 0" />
   </xacro:odom_wheel>
@@ -379,9 +377,7 @@
     <inertial>
       <mass value="0.160" />
       <origin xyz="0 0 0.0" />
-      <inertia  ixx="${(0.05/2*0.05/2+0.07/2*0.07/2)/3*0.160}" ixy="0.0" ixz="0.0"
-                iyy="${(0.07/2*0.07/2+0.05/2*0.05/2)/3*0.160}" iyz="0.0"
-                izz="${(0.05/2*0.05/2+0.05/2*0.05/2)/3*0.160}" />
+      <box_inertia m="0.160" x="0.05" y="0.05" z="0.05" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -409,10 +405,9 @@
   <!-- body -->
   <link name="body">
     <inertial>
-      <mass value="1.0" />
+      <mass value="10.0" />
       <origin xyz="0 0 0.25" />
-      <inertia  ixx="${(0.2/2*0.2/2+0.5/2*0.5/2)/3*1.0}" ixy="0.0" ixz="0.0"
-                iyy="${(0.5/2*0.5/2+0.1/2*0.1/2)/3*1.0}" iyz="0.0" izz="${(0.2/2*0.2/2+0.5/2*0.5/2)/3*1.0}" />
+      <box_inertia m="10.0" x="0.1" y="0.2" z="0.5" />
     </inertial>
     <visual>
       <origin xyz="0 0 0.25" />
