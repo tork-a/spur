@@ -1,0 +1,38 @@
+<launch>
+
+  <!-- Navigation requires at least one map.
+       In addition, it is sometimes desirable to have a "keepout" map
+       which is used for costmaps, but not localization -->
+  <arg name="map_file" default="$(find spur_2dnav)/maps/playground.yaml" />
+  <arg name="run_rviz" default="true" />
+  <arg name="use_fake_localization" default="false" />
+
+  <!-- serve up a map -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!-- Run RViz -->
+  <group if="$(arg run_rviz)">
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find spur_2dnav)/config/2dnav.rviz" />
+  </group>
+
+  <!-- localize the robot -->
+  <group unless="$(arg use_fake_localization)" >
+    <include file="$(find spur_2dnav)/launch/includes/amcl.launch.xml" >
+      <arg name="scan_topic" value="/spur/laser/scan_filtered" />
+    </include>
+  </group>
+  <group if="$(arg use_fake_localization)" >
+    <node name="fake_localization" pkg="fake_localization" type="fake_localization" respawn="false" >
+      <param name="~base_frame_id" value="base_footprint" />
+    </node>
+  </group>
+  <arg     if="$(arg use_fake_localization)" name="odom_topic" value="base_pose_ground_truth" />
+  <arg unless="$(arg use_fake_localization)" name="odom_topic" value="odom" />
+
+  <!-- move the robot -->
+  <include file="$(find spur_2dnav)/launch/includes/move_base.launch.xml" >
+    <arg name="cmd_vel_topic" value="/spur/cmd_vel" />
+    <arg name="odom_topic" value="$(arg odom_topic)" />
+  </include>
+
+</launch>
