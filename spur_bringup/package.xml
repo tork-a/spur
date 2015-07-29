@@ -21,6 +21,7 @@
   <run_depend>teleop_twist_joy</run_depend>
   <run_depend>teleop_twist_keyboard</run_depend>
   <run_depend>urg_node</run_depend>
+  <run_depend>laser_filters</run_depend>
 
   <export />
 </package>
