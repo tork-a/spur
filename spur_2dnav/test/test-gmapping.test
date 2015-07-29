@@ -2,7 +2,6 @@
   <include file="$(find spur_gazebo)/launch/spur_world.launch" >
     <arg name="gui" value="false" />
     <arg name="headless" value="true" />
-    <arg name="world_file" value="worlds/shapes.world" />
   </include>
   <include file="$(find spur_2dnav)/launch/gmapping.launch" />
   <node pkg="rostopic" type="rostopic" name="cmd_vel_rotate"
