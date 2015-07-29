@@ -2,6 +2,13 @@
 Changelog for package spur_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [fix] Odometry accuracy
+* [sys] Cleanup
+* [sys] add spur_controller/test/cmd_vel_test.py
+* Contributors: TORK 534o, Isaac IY Saito
+
 0.2.4 (2015-07-11)
 ------------------
 * set use_base_odom to true as default

@@ -2,6 +2,21 @@
 Changelog for package spur
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [feat] Enabling localization, navigation
+* [feat] Navigation parameters update
+* [feat] Update laser sensor from 04LX specification for simulation. 
+* [feat] Add fake odometory for simulation
+* [feat] gmapping, move_base params, slowdown the veloc limitation
+* [feat] 2dnav.rviz: add footprtint
+* [feat] Configs (taking fetch_navigation as a reference)* Contributors: TORK 53* [feat] add laserfilter.launch
+* [fix] Odometry accuracy
+* [sys] cleanup launc files, sim->use_dummy, spur_world uses miimax.launch
+* [sys] Cleanup
+* [sys] add spur_controller/test/cmd_vel_test.py
+* Contributors: TORK 534o, Isaac IY Saito
+
 0.2.4 (2015-07-11)
 ------------------
 

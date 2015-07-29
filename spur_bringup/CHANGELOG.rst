@@ -2,6 +2,12 @@
 Changelog for package spur_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [feat] add laserfilter.launch
+* [sys] cleanup launc files, sim->use_dummy, spur_world uses miimax.launch
+* Contributors: TORK 534o
+
 0.2.4 (2015-07-11)
 ------------------
 * set use_base_odom to true as default

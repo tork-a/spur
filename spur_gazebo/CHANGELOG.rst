@@ -2,6 +2,12 @@
 Changelog for package spur_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [feat] Enabling localization, navigation
+* [sys] Cleanup
+* Contributors: TORK 534o, Isaac IY Saito
+
 0.2.4 (2015-07-11)
 ------------------
 * support use_base_odom args for base_contraller, on gazebo it is dsiabled by default and on realroobt, it is enabled
