@@ -1,6 +1,8 @@
 <launch>
   <include file="$(find spur_bringup)/launch/minimal.launch" >
-    <arg name="sim" value="true" />
+    <arg name="use_urg_node" value="false" />
+    <arg name="use_dynamixel_controller" value="true" />
+    <arg name="use_dummy" value="true" />
   </include>
   <param name="hztest_joint_states/topic" value="/spur/joint_states" />  
   <param name="hztest_joint_states/hz" value="50.0" />
