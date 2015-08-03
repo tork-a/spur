@@ -8,7 +8,7 @@
     <remap from="scan" to="$(arg scan_topic)" />
     <remap from="map" to="$(arg map_topic)" />
     <param name="use_map_topic"  value="$(arg use_map_topic)" />
-    <rosparam file="$(find fetch_navigation)/config/amcl.yaml" command="load" />
+    <rosparam file="$(find spur_2dnav)/config/amcl.yaml" command="load" />
   </node>
 
 </launch>
