@@ -71,15 +71,15 @@ class DummyDynamixelIO(object):
     multi-servo instruction packet.
     """
 
-    def __init__(self, port, baudrate, readback_echo=False):
+    def __init__(self, port, baudrate, max_motor_id, readback_echo=False):
         """ Constructor takes serial port and baudrate as arguments. """
         self.serial_mutex = Lock()
         self.port_name = port
         self.readback_echo = readback_echo
 
-        self.goal = {}
-        self.position = {}
-        self.speed = {}
+        self.goal = [2048]*(max_motor_id+1)
+        self.position = [2048]*(max_motor_id+1)
+        self.speed = [0]*(max_motor_id+1)
 
     def ping(self, servo_id):
         self.goal[servo_id] = 2048
@@ -155,7 +155,7 @@ class DummyDynamixelIO(object):
 
 class DummyProxy(SerialProxy):
     def connect(self):
-        self.dxl_io = DummyDynamixelIO(self.port_name, self.baud_rate) # self.readback_echo: release deb version does not have readback_echo
+        self.dxl_io = DummyDynamixelIO(self.port_name, self.baud_rate, self.max_motor_id) # self.readback_echo: release deb version does not have readback_echo
         self._SerialProxy__find_motors()
         self.running = True
         if self.update_rate > 0: Thread(target=self._SerialProxy__update_motor_states).start()
