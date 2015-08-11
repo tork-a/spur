@@ -5,7 +5,7 @@
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find spur_2dnav)/config/2dnav.rviz" />
   </group>
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
-    <remap from="scan" to="/spur/laser/scan_filtered" />
+    <remap from="scan" to="/spur/laser/scan" />
     <rosparam file="$(find spur_2dnav)/config/gmapping.yaml" command="load" />
   </node>
 </launch>

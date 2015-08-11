@@ -93,17 +93,27 @@ class JointStatePublisher():
             
             for port, joints in self.port_to_joints.items():
                 vals = []
+                rospy.logdebug("joints : "+" ".join(joints))
                 for joint in joints:
                     j = self.joint_names.index(joint)
                     
                     motor_id = self.joint_to_controller[joint].motor_id
                     co = self.joint_to_controller[joint]
                     io = self.port_to_io[port]
+                    rospy.logdebug("port={} id={}, {}".format(port, motor_id, joint))
 
                     self.msg.name.append(joint)
-                    self.msg.position.append(self.raw_to_rad(io.get_position(motor_id),co))
-                    self.msg.velocity.append(self.raw_to_rad(io.get_speed(motor_id),co))
-                    self.msg.effort.append(io.get_current(motor_id))
+                    try:
+                        po = self.raw_to_rad(io.get_position(motor_id),co)
+                        ve = self.raw_to_rad(io.get_speed(motor_id),co)
+                        ef = io.get_current(motor_id)
+                        self.msg.position.append(po)
+                        self.msg.velocity.append(ve)
+                        self.msg.effort.append(ef)
+                    except:
+                        self.msg.position.append(0)
+                        self.msg.velocity.append(0)
+                        self.msg.effort.append(0)
             
             self.state_pub.publish(self.msg)
             rate.sleep()
