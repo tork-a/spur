@@ -26,6 +26,8 @@
     <node name="urg" pkg="urg_node" type="urg_node">
       <remap from="/scan" to="/spur/laser/scan" />
       <param name="frame_id" value="hokuyo_sensor_link" />
+      <param name="angle_min" value="-2.0944" />
+      <param name="angle_max" value="2.0944" />
     </node>
   </group>
   <include file="$(find spur_bringup)/launch/laser_filter.launch" />
