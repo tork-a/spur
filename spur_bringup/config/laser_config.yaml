@@ -4,10 +4,10 @@ scan_filter_chain:
   params:
     min_angle: 10
     max_angle: 170
-    neighbors: 20
+    neighbors: 10
     window: 1
 - name: range
   type: LaserScanRangeFilter
   params:
-    lower_threshold: 0.3
+    lower_threshold: 0.5
     upper_threshold: 9   # see spur.gzebo.xacro gazebo/sensor/ray/range/max
