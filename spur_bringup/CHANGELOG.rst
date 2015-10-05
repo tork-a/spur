@@ -2,6 +2,12 @@
 Changelog for package spur_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [fix] parameter tuning for the real robot
+* [fix] Install target
+* Contributors: TORK 534o, Isaac IY Saito
+
 0.2.5 (2015-07-29)
 ------------------
 * [feat] add laserfilter.launch

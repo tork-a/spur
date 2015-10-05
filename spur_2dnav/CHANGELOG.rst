@@ -2,6 +2,11 @@
 Changelog for package spur_2dnav
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [fix] parameter tuning for the real robot
+* Contributors: Isaac IY Saito
+
 0.2.5 (2015-07-29)
 ------------------
 * [feat] Enabling localization, navigation

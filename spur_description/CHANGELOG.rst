@@ -2,6 +2,9 @@
 Changelog for package spur_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.2.5 (2015-07-29)
 ------------------
 * [feat] Enabling localization, navigation
