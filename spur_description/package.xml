@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>spur_description</name>
-  <version>0.2.5</version>
+  <version>0.2.6</version>
   <description>A package for storing 3D model of SPUR omni-directional mobile manipulator robot made at Tamagawa University.</description>
 
   <maintainer email="okdhryk@gmail.com">Hiroyuki Okada</maintainer>

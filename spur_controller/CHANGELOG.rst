@@ -2,8 +2,8 @@
 Changelog for package spur_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.6 (2015-10-04)
+------------------
 * [feat] Brush up laser_scan_matcher usage
 * [feat] add calibration
 * [fix] spur_controller/joint_state_publisher.py: fix for real robot, which currently does not have configuration setup for upper body

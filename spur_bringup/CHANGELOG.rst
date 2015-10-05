@@ -2,8 +2,8 @@
 Changelog for package spur_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.6 (2015-10-04)
+------------------
 * [fix] parameter tuning for the real robot
 * [fix] Install target
 * Contributors: TORK 534o, Isaac IY Saito
