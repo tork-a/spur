@@ -103,20 +103,25 @@ class JointStatePublisher():
                     rospy.logdebug("port={} id={}, {}".format(port, motor_id, joint))
 
                     self.msg.name.append(joint)
+                    po = ve = ef = 0
                     try:
-                        po = self.raw_to_rad(io.get_position(motor_id),co)
-                        ve = self.raw_to_rad(io.get_speed(motor_id),co)
-                        ef = io.get_current(motor_id)
-                        self.msg.position.append(po)
-                        self.msg.velocity.append(ve)
-                        self.msg.effort.append(ef)
-                    except:
-                        self.msg.position.append(0)
-                        self.msg.velocity.append(0)
-                        self.msg.effort.append(0)
+                        ret = io.get_feedback(motor_id)
+                        po = self.raw_to_rad_pos(ret['position'],co)
+                        ve = self.raw_to_rad_spd(ret['speed'],co)
+                        ef = self.raw_to_rad_spd(ret['load'],co)
+                        #po = self.raw_to_rad_pos(io.get_position(motor_id),co)
+                        #ve = self.raw_to_rad_spd(io.get_speed(motor_id),co)
+                        #ef = io.get_current(motor_id)
+                    except Exception as e:
+                        rospy.logerr(e)
+                    self.msg.position.append(po)
+                    self.msg.velocity.append(ve)
+                    self.msg.effort.append(ef)
             
             self.state_pub.publish(self.msg)
             rate.sleep()
 
-    def raw_to_rad(self, raw, c):
+    def raw_to_rad_pos(self, raw, c):
         return (c.initial_position_raw - raw if c.flipped else raw - c.initial_position_raw) * c.RADIANS_PER_ENCODER_TICK
+    def raw_to_rad_spd(self, raw, c):
+        return (- raw if c.flipped else raw ) * c.RADIANS_PER_ENCODER_TICK
