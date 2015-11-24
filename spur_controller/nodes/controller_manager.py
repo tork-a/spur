@@ -137,7 +137,7 @@ class DummyDynamixelIO(object):
         return { 'timestamp': rospy.Time.now().to_sec(),
                  'id': servo_id,
                  'goal': self.goal[servo_id],
-                 'position': self.position[servo_id],
+                 'position': self.position[servo_id] % 4096,
                  'error': error,
                  'speed': speed}
 
