@@ -52,6 +52,8 @@ class JointStatePublisher():
         
         self.controller_namespace = controller_namespace
         self.joint_names = [c.joint_name for c in controllers]
+        self.pre_position = []
+        self.abs_position = []
 
         self.joint_to_controller = {}
         for c in controllers:
@@ -91,6 +93,7 @@ class JointStatePublisher():
             self.msg.velocity = []
             self.msg.effort = []
             
+            i = 0
             for port, joints in self.port_to_joints.items():
                 vals = []
                 rospy.logdebug("joints : "+" ".join(joints))
@@ -106,7 +109,17 @@ class JointStatePublisher():
                     po = ve = ef = 0
                     try:
                         ret = io.get_feedback(motor_id)
-                        po = self.raw_to_rad_pos(ret['position'],co)
+                        if len(self.abs_position) == 0:
+                            po = self.raw_to_rad_pos(ret['position'],co)
+                        else:
+                            if (ret['position'] - self.pre_position[i]) < -3072:
+                                self.abs_position[i] = self.abs_position[i] + (ret['position'] - self.pre_position[i] + 4096)
+                            elif  (ret['position'] - self.pre_position[i]) > 3072:
+                                self.abs_position[i] = self.abs_position[i] + (ret['position'] - self.pre_position[i] - 4096)
+                            else:
+                                self.abs_position[i] = self.abs_position[i] + (ret['position'] - self.pre_position[i])
+                            self.pre_position[i] = ret['position']
+                            po = self.raw_to_rad_pos(self.abs_position[i],co)
                         ve = self.raw_to_rad_spd(ret['speed'],co)
                         ef = self.raw_to_rad_spd(ret['load'],co)
                         #po = self.raw_to_rad_pos(io.get_position(motor_id),co)
@@ -117,7 +130,23 @@ class JointStatePublisher():
                     self.msg.position.append(po)
                     self.msg.velocity.append(ve)
                     self.msg.effort.append(ef)
-            
+                    i += 1
+
+            # initialize pre_position and abs_position
+            if len(self.pre_position) != len(self.msg.position):
+                self.pre_position = [0]*len(self.msg.position)
+                self.abs_position = [0]*len(self.msg.position)
+                i = 0
+                for port, joints in self.port_to_joints.items():
+                    for joint in joints:
+                        j = self.joint_names.index(joint)
+                        motor_id = self.joint_to_controller[joint].motor_id
+                        io = self.port_to_io[port]
+                        ret = io.get_feedback(motor_id)
+                        self.pre_position[i] = ret['position']
+                        self.abs_position[i] = ret['position']
+                        i+= 1
+
             self.state_pub.publish(self.msg)
             rate.sleep()
 
