@@ -139,7 +139,8 @@ class DummyDynamixelIO(object):
                  'goal': self.goal[servo_id],
                  'position': self.position[servo_id] % 4096,
                  'error': error,
-                 'speed': speed}
+                 'speed': speed,
+                 'load': 0}
 
     def set_multi_speed(self, valueTuples):
         for servo_id,val in valueTuples:
