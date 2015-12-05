@@ -2,6 +2,7 @@
   <arg name="joy_port" default="/dev/input/js0" />
   <remap from="cmd_vel" to="spur/cmd_vel"/>
   <include file="$(find teleop_twist_joy)/launch/teleop.launch">
+    <arg name="joy_config" value="ps3-holonomic" />
     <arg name="joy_dev" value="$(arg joy_port)" />
   </include>
 </launch>
