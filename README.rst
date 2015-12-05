@@ -120,10 +120,8 @@ Visualize laser range on Gazebo
 Teleoperation
 ------------------------------------------------
 
-Teleop with joystick (with Elecom PS3)
+Teleop with joystick
 ########################################
-
-The following note is confirmed with `PS3-Elecom <http://www.amazon.co.jp/ELECOM-USB%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%91%E3%83%83%E3%83%89-12%E3%83%9C%E3%82%BF%E3%83%B3-%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF-JC-GMU3312SPBK/dp/B003UIRIHC>`_ (sorry only Japanese web sites are found).
 
 1. Make sure your joystick device is paired with your computer.
 
@@ -136,7 +134,12 @@ The following note is confirmed with `PS3-Elecom <http://www.amazon.co.jp/ELECOM
  $ roslaunch spur_bringup joy_teleop.launch
  $ roslaunch spur_bringup joy_teleop.launch joy_port:=/dev/input/js1    # If joy is found on a different port
 
-3. To use PS3-Elecom, press "Mode" button twice to enable analog input. Also you may need to keep pressing the button 9 during operation.
+3. To operate with PS3-Elecom joystick
+
+The following note is confirmed with `PS3-Elecom <http://www.amazon.co.jp/ELECOM-USB%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%91%E3%83%83%E3%83%89-12%E3%83%9C%E3%82%BF%E3%83%B3-%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF-JC-GMU3312SPBK/dp/B003UIRIHC>`_ (sorry only Japanese web sites are found).
+
+* press **"Mode" button twice** to enable analog input. Also you may need to keep pressing the button 9 during operation.
+* use **left axis** of the joystick for linear motion (x-y). Use **right axis** for angular motion.
 
 Teleop with keyboard
 ########################
